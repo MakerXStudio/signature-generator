@@ -1,46 +1,37 @@
 # MakerX Signature Generator
 
-[![Azure DevOps builds](https://img.shields.io/azure-devops/build/readify/a1cfb701-86db-4671-943f-eb68ec17eb18/425.svg?style=flat)](https://readify.visualstudio.com/Labs/_build?definitionId=425)
-[![Azure DevOps releases](https://img.shields.io/azure-devops/release/readify/a1cfb701-86db-4671-943f-eb68ec17eb18/41/53.svg?style=flat)](https://readify.visualstudio.com/Labs/_release?view=mine&definitionId=41)
-[![Known Vulnerabilities](https://snyk.io/test/github/Readify/-makerx-signatures/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Readify/-makerx-signatures?targetFile=package.json)
+[![Test and Build](https://github.com/MakerXStudio/signature-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/MakerXStudio/signature-generator/actions/workflows/ci.yml)
+[![Build and Deploy](https://github.com/MakerXStudio/signature-generator/actions/workflows/cd.yml/badge.svg)](https://github.com/MakerXStudio/signature-generator/actions/workflows/cd.yml)
 
 This app can be used to create a MakerX email signature.
 
-![MakerX Signature Generator Screenshot](https://readifyvc.s3-ap-southeast-2.amazonaws.com/screenshot.png)
+[![Screenshot](./makerx-screenshot.png)](https://signatures.makerx.tech)
 
-## App Roadmap
-
-- [x] Host site
-- [x] Convert to create-react-app so that we get prod-react, and decent tooling
-- [x] Add MakerX Signature
-- [x] Leverage Azure Active Directory to autofill the form
-- [x] Write some tests
-
-## Looks great, how can I use it for my company?
+### Looks great, how can I use it for my company?
 
 `src/constants` Contains brand specific information. Edit fields in there to rebrand the website.
 
-## Content security policy
-
-This application defines a [content security policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) through an HTTP header in the [`public\web.config`](./public/web.config) file, because we're hosting that application in Azure through IIS.
-
-At the time of writing, it allows:
-
-- loading scripts and stylesheets from the hosting domain
-- loading images from both the hosting domain and `readifysignatures.blob.core.windows.net`, which is where we host the logo used in the actual signature
-- connecting to `login.microsoftonline.com` to log in to the app against Azure Active Directory (note: log in to the app against Azure Active Directory has been disabled since moving Purple Peeps to Telstra tenant)
-
-It's important to edit this policy if loading a new external resource.
-
 ## Licence
+
+Forked from Telstra Purple
 
 MIT, See: [LICENSE](https://github.com/Readify/telstra-purple-signatures/blob/master/LICENSE)
 
-## Create React App Stuff
+## Getting Started
+
+### Hosting
+
+We host this webpage using [GitHub Pages](https://pages.github.com/) and a custom domain [https://signatures.makerx.tech](https://signatures.makerx.tech) with HTTPS enforced.
+
+Check out the `CI.yml` and `CD.yml` files for how this is completed using GitHub Actions.
+
+### Visual Studio Code
+
+`launch.json` support is provided to launch this project by hitting F5.
+
+### Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-### Available Scripts
 
 In the project directory, you can run:
 
