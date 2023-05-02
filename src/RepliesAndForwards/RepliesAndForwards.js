@@ -26,7 +26,7 @@ const RepliesAndForwards = (props) => {
   return (
     <div className="content">
       <p style={styleObj}>
-        --
+        <br />
         <br />
         <b>
           {name}&nbsp;{pronounOptional}|&nbsp;{brandName}

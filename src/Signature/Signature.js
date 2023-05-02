@@ -207,9 +207,9 @@ const Signature = (props) => {
           <tr>
             <td>
               <img
-                width="400"
-                height="59"
-                style={{ width: '400px', height: '59px', maxWidth: 'none' }}
+                width="200"
+                height="30"
+                style={{ width: '200px', height: '30px', maxWidth: 'none' }}
                 src={brandLogo.link}
                 alt={brandLogo.alt}
               />
@@ -219,7 +219,7 @@ const Signature = (props) => {
             <td
               style={{
                 color: '#4a4a4a',
-                fontFamily: 'Arial, sans-serif',
+                fontFamily: '"Segoe UI", Helvetica, Arial, sans-serif',
                 fontSize: '6.5pt',
                 lineHeight: '1.5',
               }}

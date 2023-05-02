@@ -17,7 +17,7 @@ export const Form = () => {
   const labels = {
     name: { label: 'Your Name', required: true },
     pronoun: { label: 'Your Pronouns' },
-    title: { label: 'Job Title or Team' },
+    title: { label: 'Job Title' },
     email: { label: 'Email', type: 'email', required: true },
     phone: { label: 'Phone', type: 'tel' },
     mobile: { label: 'Mobile', type: 'tel', required: true },
