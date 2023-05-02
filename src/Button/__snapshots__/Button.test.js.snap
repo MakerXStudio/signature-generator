@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<Button> should render component 1`] = `
-<button
-  onClick={[Function]}
-  type="button"
-/>
-`;
