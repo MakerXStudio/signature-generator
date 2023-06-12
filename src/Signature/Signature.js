@@ -1,6 +1,6 @@
 import React from 'react';
 import constants from '../constants';
-import { parseMobile, parseLandLine } from '../util';
+import { parseMobile } from '../util';
 
 const brandInfo = constants.brandInfo;
 
