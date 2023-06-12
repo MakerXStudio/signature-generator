@@ -23,6 +23,7 @@ export const Form = () => {
     mobile: { label: 'Mobile', type: 'tel', required: true },
     twitter: { label: 'Twitter' },
     qualifications: { label: 'Qualifications' },
+    addGPTW: { label: 'Add GPTW', type: 'checkbox' },
   };
 
   let formInputs = {
@@ -33,6 +34,7 @@ export const Form = () => {
     mobile: { text: '', order: 6 },
     email: { text: '', order: 7 },
     twitter: { text: '', order: 8 },
+    addGPTW: { text: '', order: 9 },
   };
 
   var profile = useSelector((state) => {
