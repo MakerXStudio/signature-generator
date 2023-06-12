@@ -8,6 +8,10 @@ const constants = {
       link: 'https://blog.makerx.com.au/content/images/2022/01/makerx_Full.png',
       alt: 'MakerX',
     },
+    brandGPTWLogo: {
+      link: 'https://blog.makerx.com.au/content/images/size/w1000/2023/06/MakerX_2023_Certification_Badge-1.png',
+      alt: 'MakerX Great Place to Work',
+    },
   },
 
   placeholders: {

@@ -38,10 +38,12 @@ const SignatureContainer = (props) => {
     brandLink,
     brandLinkName,
     brandAnimatedLogo,
+    addGPTW,
   } = profile;
 
   const placeholders = constants.placeholders;
   const brandInfo = constants.brandInfo;
+  const brandGPTWLogo = constants.brandGPTWLogo;
 
   const signatureProps = stripObject({
     title,
@@ -60,6 +62,8 @@ const SignatureContainer = (props) => {
       },
       placeholders
     ),
+    addGPTW,
+    brandGPTWLogo,
     ...assignPlaceholders(
       { brandLogo, brandName, brandLink, brandLinkName, brandAnimatedLogo },
       brandInfo

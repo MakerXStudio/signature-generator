@@ -1,6 +1,6 @@
 import React from 'react';
 import constants from '../constants';
-import { parseMobile, parseLandLine } from '../util';
+import { parseMobile } from '../util';
 
 const brandInfo = constants.brandInfo;
 
@@ -13,12 +13,10 @@ const Signature = (props) => {
     mobile,
     email,
     twitter,
-    sigType,
-    supportHotline,
-    supportEmail,
     brandLogo,
     brandLink,
     brandLinkName,
+    addGPTW,
   } = props;
 
   const titleElement = title ? (
@@ -52,7 +50,7 @@ const Signature = (props) => {
           color: 'black',
           fontFamily: '"Segoe UI", Helvetica, Arial, sans-serif',
           fontSize: '11pt',
-          width: '500px',
+          width: '400px',
         }}
       >
         <tbody>
@@ -154,58 +152,14 @@ const Signature = (props) => {
                   </tr>
                 </tbody>
               </table>
-
-              {sigType === 'support' ? (
-                <table
-                  border="0"
-                  cellSpacing="0"
-                  cellPadding="0"
-                  style={{
-                    color: 'black',
-                    fontFamily: 'Arial, sans-serif',
-                    fontSize: '9pt',
-                    margin: 0,
-                    padding: 0,
-                  }}
-                >
-                  <tbody>
-                    <tr>
-                      <td style={{ padding: 0, width: '100px' }}>
-                        <b>Support&nbsp;Hotline</b>
-                      </td>
-                      <td style={{ padding: 0 }}>
-                        <a
-                          href={`tel:${parseLandLine(supportHotline).replace(
-                            /&nbsp;/g,
-                            ''
-                          )}`}
-                          dangerouslySetInnerHTML={{
-                            __html: parseLandLine(supportHotline),
-                          }}
-                          style={{ color: brandInfo.brandLinkColour }}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: 0 }}>
-                        <b>Support&nbsp;Email</b>
-                      </td>
-                      <td style={{ padding: 0 }}>
-                        <a
-                          href={`mailto:${supportEmail}`}
-                          style={{ color: brandInfo.brandLinkColour }}
-                        >
-                          {supportEmail}
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              ) : null}
             </td>
           </tr>
           <tr>
-            <td>
+            <td
+              style={{
+                'vertical-align': 'middle',
+              }}
+            >
               <img
                 width="200"
                 height="30"
@@ -214,20 +168,48 @@ const Signature = (props) => {
                 alt={brandLogo.alt}
               />
             </td>
+            {addGPTW ? (
+              <td
+                style={{
+                  padding: 0,
+                }}
+              >
+                <table border="0" cellSpacing="0" cellPadding="0">
+                  <tr>
+                    <td>
+                      <img
+                        width="80"
+                        height="113"
+                        style={{
+                          width: '80px',
+                          height: '113px',
+                          maxWidth: 'none',
+                        }}
+                        src={brandInfo.brandGPTWLogo.link}
+                        alt={brandInfo.brandGPTWLogo.alt}
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            ) : null}
           </tr>
           <tr>
-            <td
-              style={{
-                color: '#4a4a4a',
-                fontFamily: '"Segoe UI", Helvetica, Arial, sans-serif',
-                fontSize: '6.5pt',
-                lineHeight: '1.5',
-              }}
-            >
-              This email may contain confidential information.
-              <br />
-              If I've sent it to you by accident, please delete it immediately.
-            </td>
+            <tr>
+              <td
+                style={{
+                  color: '#4a4a4a',
+                  fontFamily: '"Segoe UI", Helvetica, Arial, sans-serif',
+                  fontSize: '6.5pt',
+                  lineHeight: '1.5',
+                }}
+              >
+                This email may contain confidential information.
+                <br />
+                If I've sent it to you by accident, please delete it
+                immediately.
+              </td>
+            </tr>
           </tr>
         </tbody>
       </table>
