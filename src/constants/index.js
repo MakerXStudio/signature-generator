@@ -3,9 +3,9 @@ const constants = {
     brandName: 'MakerX',
     brandLink: 'https://makerx.com.au/',
     brandLinkName: 'www.makerx.com.au',
-    brandLinkColour: '#0E39FB',
+    brandLinkColour: '#003FB5',
     brandLogo: {
-      link: 'https://blog.makerx.com.au/content/images/2022/01/makerx_Full.png',
+      link: 'https://makerxsignatures.blob.core.windows.net/images/MakerX-Full-Logo-Colored.png',
       alt: 'MakerX',
     },
     brandGPTWLogo: {
