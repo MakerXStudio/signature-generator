@@ -161,9 +161,9 @@ const Signature = (props) => {
               }}
             >
               <img
-                width="200"
-                height="30"
-                style={{ width: '200px', height: '30px', maxWidth: 'none' }}
+                width="250"
+                height="50"
+                style={{ width: '250px', height: '50px', maxWidth: 'none' }}
                 src={brandLogo.link}
                 alt={brandLogo.alt}
               />
