@@ -18,6 +18,7 @@ const RepliesAndForwards = (props) => {
   } = props;
   const styleObj = {
     color: 'black',
+    fontFamily: 'Helvetica, Arial, sans-serif',
     fontSize: '11pt',
   };
   const titleOptional = title ? <>&nbsp;|&nbsp;{title}</> : null;
