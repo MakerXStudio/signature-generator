@@ -48,7 +48,7 @@ const Signature = (props) => {
         cellPadding="0"
         style={{
           color: 'black',
-          fontFamily: '"Segoe UI", Helvetica, Arial, sans-serif',
+          fontFamily: 'Helvetica, Arial, sans-serif',
           fontSize: '11pt',
           width: '400px',
         }}
@@ -83,7 +83,7 @@ const Signature = (props) => {
                 cellPadding="0"
                 style={{
                   color: 'black',
-                  fontFamily: 'Arial, sans-serif',
+                  fontFamily: 'Helvetica, Arial, sans-serif',
                   fontSize: '11pt',
                   margin: 0,
                   padding: 0,
@@ -161,9 +161,9 @@ const Signature = (props) => {
               }}
             >
               <img
-                width="200"
-                height="30"
-                style={{ width: '200px', height: '30px', maxWidth: 'none' }}
+                width="250"
+                height="50"
+                style={{ width: '250px', height: '50px', maxWidth: 'none' }}
                 src={brandLogo.link}
                 alt={brandLogo.alt}
               />
@@ -199,7 +199,7 @@ const Signature = (props) => {
               <td
                 style={{
                   color: '#4a4a4a',
-                  fontFamily: '"Segoe UI", Helvetica, Arial, sans-serif',
+                  fontFamily: 'Helvetica, Arial, sans-serif',
                   fontSize: '6.5pt',
                   lineHeight: '1.5',
                 }}
