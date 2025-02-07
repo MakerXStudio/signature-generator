@@ -50,7 +50,7 @@ const Signature = (props) => {
           color: 'black',
           fontFamily: 'Helvetica, Arial, sans-serif',
           fontSize: '11pt',
-          width: '400px',
+          width: 'auto',
         }}
       >
         <tbody>
@@ -155,44 +155,53 @@ const Signature = (props) => {
             </td>
           </tr>
           <tr>
-            <td
-              style={{
-                'vertical-align': 'middle',
-              }}
-            >
-              <img
-                width="250"
-                height="50"
-                style={{ width: '250px', height: '50px', maxWidth: 'none' }}
-                src={brandLogo.link}
-                alt={brandLogo.alt}
-              />
-            </td>
-            {addGPTW ? (
-              <td
-                style={{
-                  padding: 0,
-                }}
-              >
-                <table border="0" cellSpacing="0" cellPadding="0">
-                  <tr>
-                    <td>
+            <td>
+              <table border="0" cellSpacing="0" cellPadding="0">
+                <tr>
+                  <td
+                    style={{
+                      padding: 0,
+                      verticalAlign: 'middle',
+                    }}
+                  >
+                    <img
+                      width="173"
+                      height="35"
+                      style={{
+                        width: '173px',
+                        height: '35px',
+                        maxWidth: 'none',
+                        verticalAlign: 'middle',
+                      }}
+                      src={brandLogo.link}
+                      alt={brandLogo.alt}
+                    />
+                  </td>
+                  {addGPTW ? (
+                    <td
+                      style={{
+                        paddingLeft: '10px',
+                        paddingTop: 0,
+                        paddingBottom: 0,
+                      }}
+                    >
                       <img
-                        width="80"
-                        height="113"
+                        width="62"
+                        height="62"
                         style={{
-                          width: '80px',
-                          height: '113px',
+                          width: '62px',
+                          height: '62px',
                           maxWidth: 'none',
+                          verticalAlign: 'middle',
                         }}
                         src={brandInfo.brandGPTWLogo.link}
                         alt={brandInfo.brandGPTWLogo.alt}
                       />
                     </td>
-                  </tr>
-                </table>
-              </td>
-            ) : null}
+                  ) : null}
+                </tr>
+              </table>
+            </td>
           </tr>
           <tr>
             <tr>
