@@ -165,12 +165,13 @@ const Signature = (props) => {
                     }}
                   >
                     <img
-                      width="150"
-                      height="30"
+                      width="173"
+                      height="35"
                       style={{
-                        width: '150px',
-                        height: '30px',
+                        width: '173px',
+                        height: '35px',
                         maxWidth: 'none',
+                        verticalAlign: 'middle',
                       }}
                       src={brandLogo.link}
                       alt={brandLogo.alt}
@@ -185,12 +186,13 @@ const Signature = (props) => {
                       }}
                     >
                       <img
-                        width="28"
-                        height="40"
+                        width="62"
+                        height="62"
                         style={{
-                          width: '28px',
-                          height: '40px',
+                          width: '62px',
+                          height: '62px',
                           maxWidth: 'none',
+                          verticalAlign: 'middle',
                         }}
                         src={brandInfo.brandGPTWLogo.link}
                         alt={brandInfo.brandGPTWLogo.alt}

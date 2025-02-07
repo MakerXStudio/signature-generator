@@ -2,15 +2,15 @@ const constants = {
   brandInfo: {
     brandName: 'MakerX',
     brandLink: 'https://makerx.com.au/',
-    brandLinkName: 'www.makerx.com.au',
+    brandLinkName: 'makerx.com.au',
     brandLinkColour: '#003FB5',
     brandLogo: {
       link: 'https://makerxsignatures.blob.core.windows.net/images/MakerX-Full-Logo-Black.jpg',
       alt: 'MakerX',
     },
     brandGPTWLogo: {
-      link: 'https://blog.makerx.com.au/content/images/size/w1000/2023/06/MakerX_2023_Certification_Badge-1.png',
-      alt: 'MakerX Great Place to Work',
+      link: 'https://makerxsignatures.blob.core.windows.net/images/GPTW-Best-Workplaces-2024.png',
+      alt: 'MakerX Best Workplaces',
     },
   },
 
