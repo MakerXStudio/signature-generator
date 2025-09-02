@@ -9,7 +9,7 @@ const constants = {
       alt: 'MakerX',
     },
     brandGPTWLogo: {
-      link: 'https://makerxsignatures.blob.core.windows.net/images/GPTW-Best-Workplaces-current.png',
+      link: 'https://makerxsignatures.blob.core.windows.net/images/GPTW-Best-Workplaces-Current.png',
       alt: 'MakerX Best Workplaces',
     },
   },
