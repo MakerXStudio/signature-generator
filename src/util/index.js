@@ -8,6 +8,7 @@ import {
 } from 'react-phone-number-input';
 
 const brandInfo = constants.brandInfo;
+const holidayThemes = constants.holidayThemes;
 
 const multiSplice = (toAddIndexes, val, array) =>
   toAddIndexes.forEach((index) => array.splice(index, 0, val));
@@ -73,14 +74,16 @@ export const copySignatureText = (props) => {
     isSupport,
     supportHotline,
     supportEmail,
+    holidayTheme,
   } = props;
+  const theme = holidayThemes[holidayTheme] || holidayThemes.none;
   const pronounOptional = pronoun ? ` (${pronoun})` : '';
   const mobileText = parseMobile(mobile).replace(/&nbsp;/g, ' ');
 
   const textArr = [
     '--',
     '',
-    `${name ? name : null}${pronounOptional}`,
+    `${theme.prefix}${name ? name : null}${pronounOptional}${theme.suffix}`,
     brandInfo.brandName,
     title ? title : null,
     qualifications ? `${qualifications}` : null,
@@ -114,14 +117,16 @@ export const copyRepliesAndForwardsText = (props) => {
     isSupport,
     supportHotline,
     supportEmail,
+    holidayTheme,
   } = props;
+  const theme = holidayThemes[holidayTheme] || holidayThemes.none;
   const mobileText = parseMobile(mobile).replace(/&nbsp;/g, ' ');
 
   const titleOptional = title ? ` | ${title}` : '';
   const pronounOptional = pronoun ? ` (${pronoun})` : '';
   const textArr = [
     '--',
-    `${name}${pronounOptional} | ${brandInfo.brandName}${titleOptional}`,
+    `${theme.prefix}${name}${pronounOptional} | ${brandInfo.brandName}${titleOptional}${theme.suffix}`,
     `M ${mobileText} | E ${email}${twitter ? ` | T ${twitter}` : ''} | W ${
       brandInfo.brandLinkName
     }`,

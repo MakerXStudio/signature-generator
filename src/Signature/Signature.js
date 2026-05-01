@@ -3,6 +3,7 @@ import constants from '../constants';
 import { parseMobile } from '../util';
 
 const brandInfo = constants.brandInfo;
+const holidayThemes = constants.holidayThemes;
 
 const Signature = (props) => {
   const {
@@ -17,7 +18,10 @@ const Signature = (props) => {
     brandLink,
     brandLinkName,
     addGPTW,
+    holidayTheme,
   } = props;
+
+  const theme = holidayThemes[holidayTheme] || holidayThemes.none;
 
   const titleElement = title ? (
     <>
@@ -60,8 +64,10 @@ const Signature = (props) => {
               <div style={{ height: '15px', lineHeight: '15px' }}>&nbsp;</div>
               <p>
                 <b>
+                  {theme.prefix}
                   {name}
                   {pronounOptional}
+                  {theme.suffix}
                 </b>
                 {titleElement}
                 {qualificationsElemenent}
