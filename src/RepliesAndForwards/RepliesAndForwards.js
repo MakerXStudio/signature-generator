@@ -3,6 +3,7 @@ import React from 'react';
 import constants from '../constants';
 import { parseMobile } from '../util';
 const brandInfo = constants.brandInfo;
+const holidayThemes = constants.holidayThemes;
 
 const RepliesAndForwards = (props) => {
   const {
@@ -15,7 +16,10 @@ const RepliesAndForwards = (props) => {
     brandName,
     brandLink,
     brandLinkName,
+    holidayTheme,
   } = props;
+
+  const theme = holidayThemes[holidayTheme] || holidayThemes.none;
   const styleObj = {
     color: 'black',
     fontFamily: 'Helvetica, Arial, sans-serif',
@@ -29,8 +33,10 @@ const RepliesAndForwards = (props) => {
         <br />
         <br />
         <b>
+          {theme.prefix}
           {name}&nbsp;{pronounOptional}|&nbsp;{brandName}
           {titleOptional}
+          {theme.suffix}
         </b>
         <br />
         <b>M</b>&nbsp;

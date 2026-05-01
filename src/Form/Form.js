@@ -24,6 +24,11 @@ export const Form = () => {
     twitter: { label: 'Twitter' },
     qualifications: { label: 'Qualifications' },
     addGPTW: { label: 'Add GPTW', type: 'checkbox' },
+    holidayTheme: {
+      label: 'Holiday Theme',
+      type: 'select',
+      options: 'holidayThemes',
+    },
   };
 
   let formInputs = {
@@ -35,6 +40,7 @@ export const Form = () => {
     email: { text: '', order: 7 },
     twitter: { text: '', order: 8 },
     addGPTW: { text: '', order: 9 },
+    holidayTheme: { text: '', order: 10 },
   };
 
   var profile = useSelector((state) => {
@@ -45,7 +51,13 @@ export const Form = () => {
     dispatch(updateProfile({ name, value }));
   };
 
-  const inputHtml = (inputName, inputVal, placeholder, type = 'text') => {
+  const inputHtml = (
+    inputName,
+    inputVal,
+    placeholder,
+    type = 'text',
+    options = null
+  ) => {
     if (type === 'checkbox') {
       return (
         <input
@@ -55,6 +67,25 @@ export const Form = () => {
           checked={inputVal}
           onChange={(e) => handleChange(inputName, e.target.checked)}
         />
+      );
+    }
+    if (type === 'select' && options) {
+      const optionsData = constants[options];
+      return (
+        <div className="select">
+          <select
+            id={`input-${inputName}`}
+            value={inputVal || 'none'}
+            onChange={(e) => handleChange(inputName, e.target.value)}
+            style={{ width: '300px' }}
+          >
+            {Object.entries(optionsData).map(([key, theme]) => (
+              <option key={key} value={key}>
+                {theme.label}
+              </option>
+            ))}
+          </select>
+        </div>
       );
     }
     return (
@@ -76,7 +107,12 @@ export const Form = () => {
       .map((obj) => ({ key: obj[0], ...omit(obj[1], 'order') }))
       .map((inputObj) => {
         const inputName = inputObj.key;
-        const { label, type = 'text', required = false } = labels[inputName];
+        const {
+          label,
+          type = 'text',
+          required = false,
+          options,
+        } = labels[inputName];
         return (
           <div className="field is-horizontal" key={inputName}>
             <div className="field-label is-normal">
@@ -98,7 +134,8 @@ export const Form = () => {
                   inputName,
                   values[inputName],
                   placeholders[inputName],
-                  type
+                  type,
+                  options
                 )}
               </div>
             </div>

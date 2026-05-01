@@ -29,6 +29,15 @@ const constants = {
   default: {
     countryCode: '+61',
   },
+
+  holidayThemes: {
+    none: { label: 'None', prefix: '', suffix: '' },
+    christmas: { label: 'Christmas', prefix: '🎄 ', suffix: ' ❄️' },
+    halloween: { label: 'Halloween', prefix: '🎃 ', suffix: ' 👻' },
+    easter: { label: 'Easter', prefix: '🐰 ', suffix: ' 🥚' },
+    valentines: { label: "Valentine's Day", prefix: '❤️ ', suffix: ' 💕' },
+    newYear: { label: 'New Year', prefix: '🎉 ', suffix: ' ✨' },
+  },
 };
 
 export default constants;

@@ -39,6 +39,7 @@ const SignatureContainer = (props) => {
     brandLinkName,
     brandAnimatedLogo,
     addGPTW,
+    holidayTheme,
   } = profile;
 
   const placeholders = constants.placeholders;
@@ -64,6 +65,7 @@ const SignatureContainer = (props) => {
     ),
     addGPTW,
     brandGPTWLogo,
+    holidayTheme: holidayTheme || 'none',
     ...assignPlaceholders(
       { brandLogo, brandName, brandLink, brandLinkName, brandAnimatedLogo },
       brandInfo
