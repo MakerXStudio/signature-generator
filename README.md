@@ -3,73 +3,74 @@
 [![Test and Build](https://github.com/MakerXStudio/signature-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/MakerXStudio/signature-generator/actions/workflows/ci.yml)
 [![Build and Deploy](https://github.com/MakerXStudio/signature-generator/actions/workflows/cd.yml/badge.svg)](https://github.com/MakerXStudio/signature-generator/actions/workflows/cd.yml)
 
-This app can be used to create a MakerX email signature.
+A small static React SPA used by staff to generate MakerX email signatures (both standard and replies-and-forwards variants, as HTML or plain text). Hosted via GitHub Pages at [https://signatures.makerx.tech](https://signatures.makerx.tech).
 
 [![Screenshot](./makerx-screenshot.png)](https://signatures.makerx.tech)
 
-### Looks great, how can I use it for my company?
+## Tech stack
 
-`src/constants` Contains brand specific information. Edit fields in there to rebrand the website.
+- Vite 8 + React 19 + TypeScript
+- MUI v9 (Emotion engine) for the application UI
+- react-hook-form for form state
+- libphonenumber-js for phone formatting
+- Vitest + React Testing Library for tests
+- ESLint 9 (flat config) + Prettier 3
 
-## Licence
+The generated email signature itself stays as plain inline-styled HTML tables (no MUI, no CSS classes) so it pastes cleanly into Outlook, Gmail, and other email clients.
 
-Forked from Telstra Purple
+## Getting started
 
-MIT, See: [LICENSE](https://github.com/Readify/telstra-purple-signatures/blob/master/LICENSE)
+Requires **Node 22** (see `.nvmrc`).
 
-## Getting Started
+```sh
+nvm use            # picks up .nvmrc
+npm install
+npm run dev        # http://localhost:3000
+```
 
-### Hosting
+### Scripts
 
-We host this webpage using [GitHub Pages](https://pages.github.com/) and a custom domain [https://signatures.makerx.tech](https://signatures.makerx.tech) with HTTPS enforced.
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Run the Vite dev server on port 3000 |
+| `npm run build` | Typecheck and build a production bundle into `dist/` |
+| `npm run preview` | Serve the built `dist/` for local smoke testing |
+| `npm test` | Run Vitest (watch mode) |
+| `npm test -- --run` | Run Vitest once |
+| `npm run typecheck` | TypeScript `--noEmit` |
+| `npm run lint` | ESLint over the repo |
+| `npm run format` | Prettier write |
 
-Check out the `CI.yml` and `CD.yml` files for how this is completed using GitHub Actions.
+## Rebranding for another company
 
-### Visual Studio Code
+Brand-specific values live in `src/constants/index.ts`. Edit `brandInfo` (name, link, link colour, logo URLs) and `placeholders` (the greyed-out hints in the form), and the rest of the app follows.
 
-`launch.json` support is provided to launch this project by hitting F5.
+## Embed mode
 
-### Create React App
+Visiting the app with `?embedded=1` (e.g. `https://signatures.makerx.tech/?embedded=1`) suppresses the top AppBar. Useful for iframing the generator into another page.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Deploying
 
-In the project directory, you can run:
+### First-time deploy setup
 
-#### `npm start`
+This repo deploys via GitHub's native Pages workflow (`actions/deploy-pages`), not the older `gh-pages` branch. **One manual step is required the first time:**
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. In the GitHub repo: **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **GitHub Actions**.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Until that toggle is flipped, the `Build and Deploy` workflow will fail. The custom domain (`signatures.makerx.tech`) is preserved by `public/CNAME`, which is published in every build artifact.
 
-#### `npm test`
+### Subsequent deploys
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Merging to `main` triggers the `Build and Deploy` workflow, which builds the site and deploys to the `github-pages` environment. No manual steps.
 
-#### `npm run build`
+## CI / tooling notes
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Every GitHub Action is pinned to a full commit SHA with the version tag in a comment.
+- Dependabot watches both `npm` and `github-actions` weekly; minor and patch updates are grouped.
+- There is no Husky / pre-commit hook. CI runs `npm run lint`, `npm run typecheck`, `npm test`, `npm audit --audit-level=high --omit=dev`, and `npm run build` on every PR.
+- **MUI majors are not handled by grouped Dependabot patches.** When MUI v10 lands, expect a deliberate upgrade PR (Stack API changed at v9, more may change at v10).
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Project history
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-#### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-### Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Forked from Telstra Purple's signature generator. Modernised in May 2026 (CRA → Vite, JS → TS, Redux → react-hook-form, Bulma → MUI v9, gh-pages branch → native Pages deploy). MIT licensed; see [LICENSE](./LICENSE).
