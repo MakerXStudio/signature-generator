@@ -1,9 +1,3 @@
-# Tech stack upgrade
-
-## Process
-
-### Starting prompt
-
 ```txt
 Claude, this is a fairly old app. It's essentially a static website where staff can go to generate email signatures
 
@@ -19,15 +13,6 @@ If any paths have multiple choices, ask me questions to resolve the ambiguity. O
 
 Let's ultrathink this one through and make sure we have a solid plan before we start coding.
 ```
-
-### Questions and Answers
-
-- Styling (MUI v7, Tailwind v4, Bulma V1, Keep Bulma + MUI mix)? MUI v7
-- State management (React hook form, Zustand, Keep redux)? React hook form
-- React version? (19, Keep 18)? React 19
-- Refactor scope? (Modernise + Tidy, Minimal JS to TS and Deps, Deep refactor)? Modernise + Tidy
-
-### Plan review
 
 ```txt
 Using subagents (with the sonnet model), execute the following reviews aginst this plan:
@@ -45,16 +30,6 @@ Update the plan to include all MUST and SHOULD actions. Include any COULD action
 Ask me questions to resolve any ambiguity or uncertainty.
 ```
 
-### Process the results
-
 ```txt
 Update the plan to include all MUST and SHOULD actions. Include any COULD actions that would improve the overall quality and value.
 ```
-
-### Exit plan mode and execute the plan
-
-### Post review
-
-Things are need to address:
-
-1. Pin the GitHub actions to the latest SHAs (Security)
