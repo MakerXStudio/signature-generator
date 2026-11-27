@@ -1,7 +1,6 @@
 import type { Placeholders } from './constants';
 
-// The profile held in the store: one string per placeholder (all start
-// blank) plus the Add GPTW checkbox, which is only set once it is toggled.
+// addGPTW stays unset until the checkbox is first toggled.
 export type Profile = { -readonly [K in keyof Placeholders]: string } & {
   addGPTW?: boolean;
 };

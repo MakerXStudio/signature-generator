@@ -21,9 +21,9 @@ MIT, See: [LICENSE](https://github.com/Readify/telstra-purple-signatures/blob/ma
 
 ### Prerequisites
 
-Node.js at the version in `.nvmrc` (24). With [nvm](https://github.com/nvm-sh/nvm), run `nvm use`.
+Use the Node.js version in `.nvmrc` (24). With [nvm](https://github.com/nvm-sh/nvm), run `nvm use`.
 
-Install dependencies with:
+Install dependencies:
 
 ```sh
 npm ci
@@ -47,13 +47,15 @@ npm ci
 
 ### Clipboard fixtures
 
-`src/__fixtures__/clipboard` holds the exact text and HTML that each of the four copy buttons selects for copying (captured in jsdom), for an empty, a filled and an all-optional-fields profile. `src/clipboard.test.tsx` compares the copy output against them, so any change to what gets copied fails the tests. These files are what people paste into their email client: do not update them (for example with `vitest -u`) without checking that the new signature output is intended and still pastes correctly. Prettier ignores this folder so formatting never rewrites them.
+`src/__fixtures__/clipboard` holds the exact text and HTML that each of the four copy buttons copies, for an empty, a filled and an all-optional-fields profile. `src/clipboard.test.tsx` fails when the copied output differs from these files.
+
+These files are what people paste into their email client. Before updating them (for example with `vitest -u`), check that the new output is intended and still pastes correctly.
 
 ### Hosting
 
 We host this webpage using [GitHub Pages](https://pages.github.com/) and a custom domain [https://signatures.makerx.tech](https://signatures.makerx.tech) with HTTPS enforced.
 
-Check out `.github/workflows/ci.yml` and `.github/workflows/cd.yml` for how this is completed using GitHub Actions.
+`.github/workflows/ci.yml` runs the checks and build on pull requests to `main`. `.github/workflows/cd.yml` builds and deploys the site on each push to `main`.
 
 ### Visual Studio Code
 

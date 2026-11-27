@@ -14,15 +14,13 @@
   }
 }
 
-// Bulma 1 adds a gap between level items; the buttons space themselves, and
-// Bulma 0.9 put no gap between the heading and the buttons.
+// Bulma 0.9 had no gap between level items; the buttons set their own margin.
 .level,
 .level-right {
   gap: 0;
 }
 
-// Bulma 0.9 left levels as plain blocks on mobile, with the buttons on their
-// own line below the heading.
+// Bulma 0.9 shows levels as blocks on mobile, with the buttons below the heading.
 @media screen and (max-width: 768px) {
   .level,
   .level-left,

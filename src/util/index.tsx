@@ -142,8 +142,6 @@ export const copySignature = (
   document.body.removeChild(container);
 };
 
-// Drops the null and undefined values; keys typed as only null or undefined
-// are dropped from the type too.
 type Stripped<T> = {
   [K in keyof T as T[K] extends null | undefined ? never : K]: T[K];
 };

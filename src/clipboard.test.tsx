@@ -6,9 +6,8 @@ import { Provider } from 'react-redux';
 import signatureReducer from './slice';
 import Form from './Form/Form';
 
-// Characterization tests: pin what the four copy buttons put in the DOM at
-// copy time. The fixtures under __fixtures__/clipboard are the contract; a
-// change to any of them changes what people paste into their email client.
+// The fixtures under __fixtures__/clipboard are the contract for what people
+// paste into their email client; changing one changes the copied signature.
 
 const profiles: Record<string, Record<string, string | boolean>> = {
   filled: {
@@ -29,9 +28,8 @@ const profiles: Record<string, Record<string, string | boolean>> = {
   },
 };
 
-// The copy functions append a textarea (text) or a div (HTML) to the body,
-// select it, call execCommand('copy') and remove it straight away, so the
-// copied content has to be read while execCommand runs.
+// The copy functions remove their textarea or div right after
+// execCommand('copy'), so read the content while execCommand runs.
 type Copy = { type: 'text' | 'html'; content: string };
 
 const captureCopy = (): Copy => {

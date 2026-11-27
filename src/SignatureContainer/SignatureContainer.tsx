@@ -42,8 +42,6 @@ const SignatureContainer = () => {
   const placeholders = constants.placeholders;
   const brandInfo = constants.brandInfo;
 
-  // The profile has no brand fields, so the brand values always come from
-  // brandInfo.
   const signatureProps: SignatureProps = stripObject({
     title,
     qualifications,
