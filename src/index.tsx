@@ -1,5 +1,5 @@
 import React from 'react';
-import 'bulma/css/bulma.css';
+import 'bulma/css/versions/bulma-no-dark-mode.css';
 import './index.css';
 import App from './App';
 import { createRoot } from 'react-dom/client';
