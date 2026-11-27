@@ -13,7 +13,9 @@ import Form from '../Form/Form';
 // the browser parser has normalized the rendered markup; the text buttons copy
 // the textarea's value.
 
-const profiles = {
+type GoldenProfile = Partial<Record<keyof typeof labels, string | true>>;
+
+const profiles: Record<string, GoldenProfile> = {
   placeholder: {},
   filled: {
     name: 'Jane Citizen',
@@ -38,15 +40,19 @@ const labels = {
   addGPTW: /^Add GPTW/,
 };
 
-const captureClipboard = async (profile) => {
+const captureClipboard = async (
+  profile: GoldenProfile
+): Promise<Record<string, string | undefined>> => {
   const store = configureStore({ reducer: { signature: signatureReducer } });
   const user = userEvent.setup();
 
-  const captured = [];
-  const execCommand = vi.fn((command) => {
+  const captured: (string | undefined)[] = [];
+  const execCommand = vi.fn((command: string) => {
     expect(command).toBe('copy');
     const node = document.body.lastElementChild;
-    captured.push(node.tagName === 'TEXTAREA' ? node.value : node.innerHTML);
+    captured.push(
+      node instanceof HTMLTextAreaElement ? node.value : node?.innerHTML
+    );
     return true;
   });
   const originalExecCommand = document.execCommand;
@@ -59,7 +65,10 @@ const captureClipboard = async (profile) => {
       </Provider>
     );
 
-    for (const [field, value] of Object.entries(profile)) {
+    for (const [field, value] of Object.entries(profile) as [
+      keyof typeof labels,
+      string | true
+    ][]) {
       const input = screen.getByLabelText(labels[field]);
       if (value === true) {
         await user.click(input);
@@ -81,6 +90,7 @@ const captureClipboard = async (profile) => {
       repliesHtml,
       repliesText,
     ]) {
+      if (!button) throw new Error('Copy button not found');
       await user.click(button);
     }
   } finally {
@@ -92,28 +102,31 @@ const captureClipboard = async (profile) => {
   return { signatureHtml, signatureText, repliesHtml, repliesText };
 };
 
-describe.each(Object.keys(profiles))('golden: %s profile', (profileName) => {
-  let clipboard;
+describe.each(Object.entries(profiles))(
+  'golden: %s profile',
+  (profileName, profile) => {
+    let clipboard: Record<string, string | undefined>;
 
-  beforeAll(async () => {
-    clipboard = await captureClipboard(profiles[profileName]);
-  });
+    beforeAll(async () => {
+      clipboard = await captureClipboard(profile);
+    });
 
-  const files = {
-    signatureHtml: `${profileName}-signature.html`,
-    signatureText: `${profileName}-signature.txt`,
-    repliesHtml: `${profileName}-replies-and-forwards.html`,
-    repliesText: `${profileName}-replies-and-forwards.txt`,
-  };
+    const files = {
+      signatureHtml: `${profileName}-signature.html`,
+      signatureText: `${profileName}-signature.txt`,
+      repliesHtml: `${profileName}-replies-and-forwards.html`,
+      repliesText: `${profileName}-replies-and-forwards.txt`,
+    };
 
-  it.each(Object.entries(files))('%s matches %s', async (key, file) => {
-    const value = clipboard[key];
-    expect(typeof value).toBe('string');
-    expect(value.length).toBeGreaterThan(0);
-    expect(
-      existsSync(join(dirname(fileURLToPath(import.meta.url)), file)),
-      `Golden file ${file} is missing. Goldens must never be regenerated; restore it from git.`
-    ).toBe(true);
-    await expect(value).toMatchFileSnapshot(`./${file}`);
-  });
-});
+    it.each(Object.entries(files))('%s matches %s', async (key, file) => {
+      const value = clipboard[key];
+      expect(typeof value).toBe('string');
+      expect(value?.length).toBeGreaterThan(0);
+      expect(
+        existsSync(join(dirname(fileURLToPath(import.meta.url)), file)),
+        `Golden file ${file} is missing. Goldens must never be regenerated; restore it from git.`
+      ).toBe(true);
+      await expect(value).toMatchFileSnapshot(`./${file}`);
+    });
+  }
+);

@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { type ComponentType } from 'react';
 import constants from '../constants';
 import ReactDOMServer from 'react-dom/server';
 import {
   formatPhoneNumberIntl,
   isValidPhoneNumber,
 } from 'react-phone-number-input';
+import type { CopyProps, SignatureProps } from '../types';
 
 const brandInfo = constants.brandInfo;
 
-export const parseMobile = (mobileNum) => {
+export function parseMobile(mobileNum: string): string;
+export function parseMobile(mobileNum: undefined): null;
+export function parseMobile(mobileNum: string | undefined): string | null {
   if (mobileNum === undefined) return null;
 
   // some random number, trust the user
@@ -23,9 +26,9 @@ export const parseMobile = (mobileNum) => {
   }
 
   return formatPhoneNumberIntl(mobileNum);
-};
+}
 
-const copyText = (text) => {
+const copyText = (text: string) => {
   const container = document.createElement('textarea');
   container.value = text;
   document.body.appendChild(container);
@@ -34,7 +37,7 @@ const copyText = (text) => {
   document.body.removeChild(container);
 };
 
-export const copySignatureText = (props) => {
+export const copySignatureText = (props: CopyProps) => {
   const { name, pronoun, title, qualifications, mobile, email, twitter } =
     props;
   const pronounOptional = pronoun ? ` (${pronoun})` : '';
@@ -60,7 +63,7 @@ export const copySignatureText = (props) => {
   copyText(textArr.filter((val) => val !== null).join('\n'));
 };
 
-export const copyRepliesAndForwardsText = (props) => {
+export const copyRepliesAndForwardsText = (props: CopyProps) => {
   const { name, pronoun, title, mobile, email, twitter } = props;
   const mobileText = parseMobile(mobile).replace(/&nbsp;/g, ' ');
 
@@ -77,7 +80,10 @@ export const copyRepliesAndForwardsText = (props) => {
   copyText(textArr.filter((val) => val !== null).join('\n'));
 };
 
-export const copySignature = (props, SignatureComponent) => {
+export const copySignature = (
+  props: CopyProps,
+  SignatureComponent: ComponentType<SignatureProps>
+) => {
   // You need to copy the signature as richtext html if you want it to paste nicely into outlook
   // credit: https://stackoverflow.com/questions/34191780/javascript-copy-string-to-clipboard-as-text-html
   const html = ReactDOMServer.renderToStaticMarkup(
@@ -93,18 +99,27 @@ export const copySignature = (props, SignatureComponent) => {
 
   document.body.appendChild(container);
 
-  window.getSelection().removeAllRanges();
+  window.getSelection()!.removeAllRanges();
 
   const range = document.createRange();
   range.selectNode(container);
-  window.getSelection().addRange(range);
+  window.getSelection()!.addRange(range);
 
   document.execCommand('copy');
 
   document.body.removeChild(container);
 };
 
-export const stripObject = (obj) =>
+// Keys whose type is exactly null are always removed; null is removed from the
+// rest. Keys that may be undefined stay possibly undefined.
+type StripNull<T> = {
+  [K in keyof T as [T[K]] extends [null] ? never : K]: Exclude<T[K], null>;
+};
+
+export const stripObject = <T extends object>(obj: T): StripNull<T> =>
   Object.entries(obj)
     .filter(([key, val]) => val !== null && val !== undefined)
-    .reduce((result, [key, val]) => Object.assign(result, { [key]: val }), {});
+    .reduce(
+      (result, [key, val]) => Object.assign(result, { [key]: val }),
+      {}
+    ) as StripNull<T>;

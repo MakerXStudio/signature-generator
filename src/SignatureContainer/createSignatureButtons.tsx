@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import {
   copyRepliesAndForwardsText,
@@ -8,8 +8,15 @@ import {
 import Signature from '../Signature/Signature';
 import RepliesAndForwards from '../RepliesAndForwards/RepliesAndForwards';
 import Button from '../Button/Button';
+import type { Placeholders, SignatureProps } from '../types';
 
-const buttonMaker = (clickHandler, isText) => {
+type ButtonName =
+  | 'CopySignatureText'
+  | 'CopySignatureHtml'
+  | 'CopyRepliesAndForwardsText'
+  | 'CopyRepliesAndForwardsHtml';
+
+const buttonMaker = (clickHandler: () => void, isText: boolean) => {
   const isSuccessClass = 'button is-success';
   const copiedText = 'Copied!';
   const classText = 'button';
@@ -26,8 +33,11 @@ const buttonMaker = (clickHandler, isText) => {
     />
   );
 };
-export const createButtons = (signatureProps, placeholders) => {
-  const clickHandlers = {
+export const createButtons = (
+  signatureProps: SignatureProps,
+  placeholders: Placeholders
+) => {
+  const clickHandlers: Record<ButtonName, () => void> = {
     CopySignatureText: () =>
       copySignatureText({
         ...signatureProps,
@@ -56,18 +66,20 @@ export const createButtons = (signatureProps, placeholders) => {
       ),
   };
 
-  return [
-    { name: 'CopySignatureText', isText: true },
-    { name: 'CopySignatureHtml', isText: false },
-    { name: 'CopyRepliesAndForwardsText', isText: true },
-    { name: 'CopyRepliesAndForwardsHtml', isText: false },
-  ]
-    .map((buttonArr) => [
+  return (
+    [
+      { name: 'CopySignatureText', isText: true },
+      { name: 'CopySignatureHtml', isText: false },
+      { name: 'CopyRepliesAndForwardsText', isText: true },
+      { name: 'CopyRepliesAndForwardsHtml', isText: false },
+    ] as const
+  )
+    .map((buttonArr): [ButtonName, ReactElement] => [
       buttonArr.name,
       buttonMaker(clickHandlers[buttonArr.name], buttonArr.isText),
     ])
     .reduce(
       (result, item) => Object.assign(result, { [item[0]]: item[1] }),
-      {}
+      {} as Record<ButtonName, ReactElement>
     );
 };

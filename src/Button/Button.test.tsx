@@ -2,7 +2,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Button from './Button';
 
-const renderButton = (onClickHandler = vi.fn()) =>
+const renderButton = (onClickHandler: () => void = vi.fn()) =>
   render(
     <Button
       onClickHandler={onClickHandler}

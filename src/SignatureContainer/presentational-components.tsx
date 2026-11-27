@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 
 import Signature from '../Signature/Signature';
 import RepliesAndForwards from '../RepliesAndForwards/RepliesAndForwards';
+import type { SignatureProps } from '../types';
+
+interface BrandSignatureContainerProps {
+  signatureProps: SignatureProps;
+  CopySignatureText: ReactNode;
+  CopySignatureHtml: ReactNode;
+  CopyRepliesAndForwardsText: ReactNode;
+  CopyRepliesAndForwardsHtml: ReactNode;
+}
 
 export const BrandSignatureContainer = ({
   signatureProps,
@@ -9,7 +18,7 @@ export const BrandSignatureContainer = ({
   CopySignatureHtml,
   CopyRepliesAndForwardsText,
   CopyRepliesAndForwardsHtml,
-}) => (
+}: BrandSignatureContainerProps) => (
   <div className="content">
     <div className="level">
       <div className="level-left">

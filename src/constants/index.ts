@@ -1,3 +1,5 @@
+import type { BrandInfo, Placeholders } from '../types';
+
 const constants = {
   brandInfo: {
     brandName: 'MakerX',
@@ -12,7 +14,7 @@ const constants = {
       link: 'https://makerxsignatures.blob.core.windows.net/images/GPTW-Best-Workplaces-Current.png',
       alt: 'MakerX Best Workplaces',
     },
-  },
+  } satisfies BrandInfo,
 
   placeholders: {
     name: 'Your Name',
@@ -22,11 +24,15 @@ const constants = {
     mobile: '+61 111 222 333',
     twitter: 'myTwitterHandle',
     qualifications: 'Jedi Master | PSM I',
-  },
+  } satisfies Placeholders,
 
   default: {
     countryCode: '+61',
   },
+} satisfies {
+  brandInfo: BrandInfo;
+  placeholders: Placeholders;
+  default: { countryCode: string };
 };
 
 export default constants;

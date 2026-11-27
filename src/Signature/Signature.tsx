@@ -1,10 +1,11 @@
 import React from 'react';
 import constants from '../constants';
 import { parseMobile } from '../util';
+import type { SignatureProps } from '../types';
 
 const brandInfo = constants.brandInfo;
 
-const Signature = (props) => {
+const Signature = (props: SignatureProps) => {
   const {
     name,
     pronoun,
@@ -43,7 +44,7 @@ const Signature = (props) => {
   return (
     <div className="content">
       <table
-        border="0"
+        border={0}
         cellSpacing="0"
         cellPadding="0"
         style={{
@@ -76,9 +77,9 @@ const Signature = (props) => {
             ></td>
           </tr>
           <tr>
-            <td colSpan="2">
+            <td colSpan={2}>
               <table
-                border="0"
+                border={0}
                 cellSpacing="0"
                 cellPadding="0"
                 style={{
@@ -156,7 +157,7 @@ const Signature = (props) => {
           </tr>
           <tr>
             <td>
-              <table border="0" cellSpacing="0" cellPadding="0">
+              <table border={0} cellSpacing="0" cellPadding="0">
                 <tr>
                   <td
                     style={{

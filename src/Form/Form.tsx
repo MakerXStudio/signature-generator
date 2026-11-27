@@ -6,13 +6,28 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateProfile } from '../slice';
 
 import constants from '../constants';
+import type { RootState } from '../store';
+import type { Placeholders, Profile } from '../types';
+
+type InputType = 'text' | 'email' | 'tel' | 'checkbox';
+
+interface FieldLabel {
+  label: string;
+  type?: InputType;
+  required?: boolean;
+}
+
+interface FormInput {
+  text: string;
+  order: number;
+}
 
 export const Form = () => {
   const dispatch = useDispatch();
 
   const placeholders = constants.placeholders;
 
-  const labels = {
+  const labels: Record<keyof Profile, FieldLabel> = {
     name: { label: 'Your Name', required: true },
     pronoun: { label: 'Your Pronouns' },
     title: { label: 'Job Title' },
@@ -33,24 +48,29 @@ export const Form = () => {
     email: { text: '', order: 7 },
     twitter: { text: '', order: 8 },
     addGPTW: { text: '', order: 9 },
-  };
+  } satisfies Partial<Record<keyof Profile, FormInput>>;
 
-  var profile = useSelector((state) => {
+  var profile = useSelector((state: RootState) => {
     return state.signature.profile;
   });
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: keyof Profile, value: Profile[keyof Profile]) => {
     dispatch(updateProfile({ name, value }));
   };
 
-  const inputHtml = (inputName, inputVal, placeholder, type = 'text') => {
+  const inputHtml = (
+    inputName: keyof Profile,
+    inputVal: Profile[keyof Profile] | undefined,
+    placeholder: string | undefined,
+    type: InputType = 'text'
+  ) => {
     if (type === 'checkbox') {
       return (
         <input
           id={`input-${inputName}`}
           type={type}
           className="mt-3"
-          checked={inputVal}
+          checked={typeof inputVal === 'boolean' ? inputVal : undefined}
           onChange={(e) => handleChange(inputName, e.target.checked)}
         />
       );
@@ -62,14 +82,18 @@ export const Form = () => {
         type={type}
         placeholder={placeholder}
         style={{ width: '300px' }}
-        value={inputVal || ''}
+        value={typeof inputVal === 'string' ? inputVal : ''}
         onChange={(e) => handleChange(inputName, e.target.value)}
       />
     );
   };
 
-  const renderHtmlForInputs = (formInputs, placeholders, values) => {
-    return Object.entries(formInputs)
+  const renderHtmlForInputs = (
+    formInputs: Partial<Record<keyof Profile, FormInput>>,
+    placeholders: Placeholders,
+    values: Partial<Profile>
+  ) => {
+    return (Object.entries(formInputs) as [keyof Profile, FormInput][])
       .sort((a, b) => a[1].order - b[1].order)
       .map(([key, { order, ...rest }]) => ({ key, ...rest }))
       .map((inputObj) => {
