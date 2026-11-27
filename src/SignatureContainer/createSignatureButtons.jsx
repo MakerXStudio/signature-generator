@@ -5,9 +5,9 @@ import {
   copySignature,
   copySignatureText,
 } from '../util';
-import Signature from '../Signature';
-import RepliesAndForwards from '../RepliesAndForwards';
-import Button from '../Button';
+import Signature from '../Signature/Signature';
+import RepliesAndForwards from '../RepliesAndForwards/RepliesAndForwards';
+import Button from '../Button/Button';
 
 const buttonMaker = (clickHandler, isText) => {
   const isSuccessClass = 'button is-success';

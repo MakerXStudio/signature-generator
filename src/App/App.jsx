@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Form from '../Form';
-import Header from '../Header';
-import Info from '../Info';
+import Form from '../Form/Form';
+import Header from '../Header/Header';
+import Info from '../Info/Info';
 
 class App extends Component {
   constructor(props) {

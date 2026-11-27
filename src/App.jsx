@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import Form from './Form';
-import Header from './Header';
-import Info from './Info';
+import Form from './Form/Form';
+import Header from './Header/Header';
+import Info from './Info/Info';
 import './App.css';
 
 class App extends Component {
