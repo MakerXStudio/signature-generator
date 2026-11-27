@@ -1,0 +1,46 @@
+[
+  {
+    "input": "(undefined)",
+    "output": null
+  },
+  {
+    "input": "",
+    "output": ""
+  },
+  {
+    "input": "9876 5432",
+    "output": "9876&nbsp;5432"
+  },
+  {
+    "input": "98765432",
+    "output": "9876&nbsp;5432"
+  },
+  {
+    "input": "02 9876 5432",
+    "output": "02 9876 5432"
+  },
+  {
+    "input": "+61 2 9876 5432",
+    "output": "+61&nbsp;2&nbsp;9876&nbsp;5432"
+  },
+  {
+    "input": "61298765432",
+    "output": "+61&nbsp;2&nbsp;9876&nbsp;5432"
+  },
+  {
+    "input": "1800 123 456",
+    "output": "1800 123 456"
+  },
+  {
+    "input": "13 13 13",
+    "output": "13 13 13"
+  },
+  {
+    "input": "+61 111 222 333",
+    "output": "+61&nbsp;1&nbsp;1122&nbsp;2333"
+  },
+  {
+    "input": "n/a",
+    "output": "n/a"
+  }
+]

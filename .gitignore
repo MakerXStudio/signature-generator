@@ -25,3 +25,9 @@ yarn-error.log*
 .idea
 MakerX Signature Template - Support Team
 MakerX Signature Template
+
+# playwright
+/test-results
+/playwright-report
+/blob-report
+/playwright/.cache
