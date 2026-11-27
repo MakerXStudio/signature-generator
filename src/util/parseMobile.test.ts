@@ -13,6 +13,17 @@ describe('parseMobile', () => {
     expect(parseMobile('12345')).toBe('12345');
   });
 
+  // These depend on libphonenumber-js metadata (1.13.x). Older metadata treated
+  // these AU mobile ranges as invalid and returned them unchanged, so a metadata
+  // change that alters these results is a deliberate, visible change.
+  it.each([
+    ['0463681349', '+61 463 681 349'],
+    ['0454123456', '+61 454 123 456'],
+    ['0494123456', '+61 494 123 456'],
+  ])('formats AU mobile %s in a newer range as %s', (input, expected) => {
+    expect(parseMobile(input)).toBe(expected);
+  });
+
   it('returns null for undefined', () => {
     expect(parseMobile(undefined)).toBeNull();
   });
