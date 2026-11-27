@@ -1,7 +1,5 @@
-// jsdom has no document.execCommand. This defines a stub that records what
-// the app's copy helpers select: the textarea's value for text copies, or the
-// selected container's innerHTML for HTML copies. Returns the captured list
-// and a restore function that puts the original property back.
+// jsdom has no document.execCommand. The stub records what the copy helpers in
+// src/util select: the textarea value for text, the node's innerHTML for HTML.
 export const stubExecCommand = () => {
   const original = Object.getOwnPropertyDescriptor(document, 'execCommand');
   const copies = [];

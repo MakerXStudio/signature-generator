@@ -30,8 +30,7 @@ export default [
       ...react.configs.flat.recommended.rules,
       ...react.configs.flat['jsx-runtime'].rules,
       ...reactHooks.configs.flat.recommended.rules,
-      // The app does not use prop-types (CRA's react-app config never enabled
-      // this rule); prop typing arrives with the TypeScript phase.
+      // The app does not use prop-types; CRA's react-app config never enabled this rule.
       'react/prop-types': 'off',
     },
   },

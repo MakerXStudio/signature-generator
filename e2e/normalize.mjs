@@ -1,6 +1,4 @@
-// Chromium inlines computed styles into copied HTML. Computed widths depend on
-// how each OS rasterizes Helvetica and Arial, so every px `width` value is
-// replaced with `width:<px>`: presence is still checked, the value is not.
-// Frozen once the milestone 1 Linux check passed; do not change it.
+// Chromium inlines computed styles into copied HTML, and px widths vary with
+// each OS's font rasterization. The e2e goldens depend on this exact output.
 export const normalizeClipboardHtml = (html) =>
   html.replace(/(?<![\w-])width:\s*-?[\d.]+px/g, 'width:<px>');

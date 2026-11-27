@@ -17,7 +17,6 @@ const renderForm = () => {
   );
 };
 
-// Clicks the four copy buttons in page order and returns what each selected.
 const copyAll = async (user, stub) => {
   const [signatureText, repliesText] = screen.getAllByRole('button', {
     name: 'Copy text only',

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { expectGolden } from './golden.mjs';
 import { normalizeClipboardHtml } from './normalize.mjs';
 
-// Same values as filledProfile in src/test/fixtures.js.
+// Must match filledProfile in src/test/fixtures.js.
 const filledProfile = {
   name: 'Ada Lovelace',
   pronoun: 'she/her',
@@ -34,8 +34,6 @@ const readClipboard = (page) =>
     return result;
   });
 
-// Clicks the four copy buttons in page order and compares each clipboard
-// type with its golden.
 const expectCopies = async (page, profile) => {
   const textButtons = page.getByRole('button', { name: 'Copy text only' });
   const htmlButtons = page.getByRole('button', { name: 'Copy signature' });

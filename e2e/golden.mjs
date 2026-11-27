@@ -7,8 +7,6 @@ const goldensDir = path.join(
   '__goldens__'
 );
 
-// Compares `actual` byte for byte with e2e/__goldens__/<name>. With
-// UPDATE_GOLDENS=1 the file is (re)written instead; a missing golden fails.
 export const expectGolden = (expect, name, actual) => {
   const file = path.join(goldensDir, name);
   if (process.env.UPDATE_GOLDENS === '1') {

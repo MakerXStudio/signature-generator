@@ -12,7 +12,7 @@ export default defineConfig({
   webServer: {
     command: `npx vite preview --port ${port} --strictPort`,
     url: `http://localhost:${port}`,
-    // Never test a dev server that happens to be running on the port.
+    // Always test the built preview, never a server already on the port.
     reuseExistingServer: false,
   },
 });

@@ -17,7 +17,7 @@ const allFields = {
   twitter: 'adalovelace',
 };
 
-// Hand-written Signature and RepliesAndForwards props, keyed by golden name.
+// Each key is part of its golden file names.
 export const fixtures = {
   'all-fields-gptw': { ...allFields, addGPTW: true },
   'minimal-placeholders': {
@@ -62,8 +62,8 @@ export const fixtures = {
   'gptw-off': { ...allFields, addGPTW: false },
 };
 
-// Values typed into the form for the filled-in profile, keyed by input id
-// suffix. e2e/clipboard.spec.mjs types the same values.
+// Keyed by input id suffix (`#input-<key>`). Must match filledProfile in
+// e2e/clipboard.spec.mjs.
 export const filledProfile = {
   name: 'Ada Lovelace',
   pronoun: 'she/her',

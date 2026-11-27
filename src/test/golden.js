@@ -1,12 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-// Resolved from the working directory rather than import.meta.url so the same
-// helper runs under CRA's CommonJS Jest and under Vitest.
+// Relative to the working directory, so tests must run from the repo root.
 const goldensDir = path.join(process.cwd(), 'src', '__goldens__');
 
-// Compares `actual` byte for byte with src/__goldens__/<name>. With
-// UPDATE_GOLDENS=1 the file is (re)written instead; a missing golden fails.
 export const expectGolden = (expect, name, actual) => {
   const file = path.join(goldensDir, name);
   if (process.env.UPDATE_GOLDENS === '1') {

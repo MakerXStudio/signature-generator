@@ -33,15 +33,17 @@ Check out the `CI.yml` and `CD.yml` files for how this is completed using GitHub
 
 This project is built with [Vite](https://vite.dev/) and tested with [Vitest](https://vitest.dev/) and [Playwright](https://playwright.dev/). It uses Node 24 (see `.nvmrc`).
 
-In the project directory, you can run:
-
 #### `npm start`
 
-Runs the app with the Vite dev server, which prints the local URL to open (http://localhost:5173 by default). Edits reload in the browser.
+Starts the Vite dev server at http://localhost:5173 by default. Edits reload in the browser.
 
 #### `npm test`
 
-Runs the unit and component tests with Vitest in watch mode. Use `npx vitest run` for a single run.
+Runs the Vitest unit and component tests in watch mode. `npx vitest run` runs them once.
+
+#### `npm run lint`
+
+Checks the code with ESLint. `npm run lint:fix` also fixes what it can.
 
 #### `npm run build`
 
@@ -49,11 +51,11 @@ Builds the app for production to the `build` folder.
 
 #### `npm run preview`
 
-Serves the production build from `build` locally.
+Serves the `build` folder locally.
 
 #### `npm run test:e2e`
 
-Runs the Playwright tests in Chromium against `vite preview` of the production build, so run `npm run build` first. The server uses port 4173; set `E2E_PORT` to use another. Install the browser once with `npx playwright install chromium`.
+Runs the Playwright tests in Chromium against the `build` folder served by `vite preview`. Run `npm run build` first, and install the browser once with `npx playwright install chromium`. The server uses port 4173; set `E2E_PORT` to use another.
 
 #### Golden files
 
