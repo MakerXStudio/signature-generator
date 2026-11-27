@@ -1,5 +1,5 @@
 {
-  "main": "./Form.js",
+  "main": "./Form.jsx",
   "name": "Form",
   "version": "0.0.0",
   "private": true

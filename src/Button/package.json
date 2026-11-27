@@ -1,5 +1,5 @@
 {
-  "main": "./Button.js",
+  "main": "./Button.jsx",
   "name": "Button",
   "version": "0.0.0",
   "private": true

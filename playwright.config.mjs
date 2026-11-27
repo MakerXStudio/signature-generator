@@ -10,7 +10,7 @@ export default defineConfig({
   use: { baseURL: `http://localhost:${port}` },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: `npx serve -s build -l ${port}`,
+    command: `npx vite preview --port ${port} --strictPort`,
     url: `http://localhost:${port}`,
     // Never test a dev server that happens to be running on the port.
     reuseExistingServer: false,

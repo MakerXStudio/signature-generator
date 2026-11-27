@@ -1,5 +1,5 @@
 {
-  "main": "./RepliesAndForwards.js",
+  "main": "./RepliesAndForwards.jsx",
   "name": "RepliesAndForwards",
   "version": "0.0.0",
   "private": true

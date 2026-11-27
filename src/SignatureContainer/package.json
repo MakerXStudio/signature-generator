@@ -1,5 +1,5 @@
 {
-  "main": "./SignatureContainer.js",
+  "main": "./SignatureContainer.jsx",
   "name": "SignatureContainer",
   "version": "0.0.0",
   "private": true
