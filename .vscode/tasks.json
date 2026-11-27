@@ -52,9 +52,9 @@
       "problemMatcher": []
     },
     {
-      "label": "npm check-types",
+      "label": "npm typecheck",
       "type": "npm",
-      "script": "check-types",
+      "script": "typecheck",
       "path": "${workspaceFolder}",
       "options": {
         "cwd": "${workspaceFolder}"

@@ -7,7 +7,6 @@
       "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "start"],
-      "preLaunchTask": "npm start",
       "sourceMaps": true,
       "smartStep": true,
       "internalConsoleOptions": "neverOpen"

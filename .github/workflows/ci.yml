@@ -28,6 +28,12 @@ jobs:
       - name: Install Packages
         run: npm ci
 
+      - run: npm run lint
+
+      - run: npm run format:check
+
+      - run: npm run typecheck
+
       - run: npm run test:ci
 
       - run: npm run build

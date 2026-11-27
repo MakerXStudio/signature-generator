@@ -24,7 +24,7 @@ const assignPlaceholders = <K extends string>(
 };
 
 const SignatureContainer = () => {
-  var profile = useAppSelector((state) => state.signature.profile);
+  const profile = useAppSelector((state) => state.signature.profile);
 
   const {
     name,
@@ -69,7 +69,7 @@ const SignatureContainer = () => {
 
   const buttons = createButtons(signatureProps, placeholders);
 
-  var containerProps = {
+  const containerProps = {
     signatureProps,
     ...buttons,
   };

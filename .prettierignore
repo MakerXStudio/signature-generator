@@ -1,0 +1,5 @@
+src/__fixtures__/
+build/
+dist/
+package-lock.json
+.claude/

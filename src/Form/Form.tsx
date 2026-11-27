@@ -45,7 +45,7 @@ export const Form = () => {
     addGPTW: { label: 'Add GPTW', type: 'checkbox' },
   };
 
-  let formInputs: FormInputs = {
+  const formInputs: FormInputs = {
     name: { text: '', order: 2 },
     pronoun: { text: '', order: 3 },
     title: { text: '', order: 4 },
@@ -56,7 +56,7 @@ export const Form = () => {
     addGPTW: { text: '', order: 9 },
   };
 
-  var profile = useAppSelector((state) => {
+  const profile = useAppSelector((state) => {
     return state.signature.profile;
   });
 
@@ -101,9 +101,7 @@ export const Form = () => {
   ) => {
     return (Object.entries(formInputs) as [InputName, FormInput][])
       .sort((a, b) => a[1].order - b[1].order)
-      .map(([key, { order, ...rest }]) => ({ key, ...rest }))
-      .map((inputObj) => {
-        const inputName = inputObj.key;
+      .map(([inputName]) => {
         const { label, type = 'text', required = false } = labels[inputName];
         return (
           <div className="field is-horizontal" key={inputName}>
