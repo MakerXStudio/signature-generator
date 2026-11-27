@@ -40,15 +40,23 @@
   font-weight: 700;
 }
 
+/* Bulma 0.9 kept plain buttons white on hover and press, and only darkened
+   the border (to 71% and 29% lightness). */
 .button {
   --bulma-button-weight: 400;
   --bulma-button-padding-horizontal: calc(1em + 1px);
   --bulma-button-outer-shadow-a: 0;
+  --bulma-button-hover-background-l-delta: 0%;
+  --bulma-button-active-background-l-delta: 0%;
+  --bulma-button-hover-border-l-delta: -15%;
+  --bulma-button-active-border-l-delta: -57%;
   font-family: var(--bulma-family-primary);
 }
 
 .button.is-link {
   --bulma-button-border-width: 1px;
+  --bulma-button-hover-background-l-delta: -2.5%;
+  --bulma-button-active-background-l-delta: -5%;
   border-color: transparent;
 }
 

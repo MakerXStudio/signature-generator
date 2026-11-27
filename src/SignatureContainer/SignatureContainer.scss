@@ -14,7 +14,9 @@
   }
 }
 
-// Bulma 1 adds a gap between level items; the buttons space themselves.
+// Bulma 1 adds a gap between level items; the buttons space themselves, and
+// Bulma 0.9 put no gap between the heading and the buttons.
+.level,
 .level-right {
   gap: 0;
 }
