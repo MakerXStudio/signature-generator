@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { configureStore } from '@reduxjs/toolkit';
@@ -107,6 +110,10 @@ describe.each(Object.keys(profiles))('golden: %s profile', (profileName) => {
     const value = clipboard[key];
     expect(typeof value).toBe('string');
     expect(value.length).toBeGreaterThan(0);
+    expect(
+      existsSync(join(dirname(fileURLToPath(import.meta.url)), file)),
+      `Golden file ${file} is missing. Goldens must never be regenerated; restore it from git.`
+    ).toBe(true);
     await expect(value).toMatchFileSnapshot(`./${file}`);
   });
 });
