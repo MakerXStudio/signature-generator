@@ -129,18 +129,19 @@ export default function BasicTabs() {
                 >
                   <li style={{ marginBottom: '0.5rem' }}>
                     <span style={{ fontWeight: 'bold' }}>Windows: </span>
-                    File > Options > Mail > Signatures
+                    File &gt; Options &gt; Mail &gt; Signatures
                   </li>
                   <li>
                     <span style={{ fontWeight: 'bold' }}>Mac: </span>
-                    Outlook > Preferences > Signatures
+                    Outlook &gt; Preferences &gt; Signatures
                   </li>
                   <li>
                     <span style={{ fontWeight: 'bold' }}>
                       Outlook web access (OWA):{' '}
                     </span>
-                    Cog (top-right) > "View all Outlook settings" link (bottom)
-                    > Mail > Compose and reply > Email signature
+                    Cog (top-right) &gt; "View all Outlook settings" link
+                    (bottom) &gt; Mail &gt; Compose and reply &gt; Email
+                    signature
                   </li>
                 </ul>
               </li>

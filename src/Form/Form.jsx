@@ -2,7 +2,7 @@ import React from 'react';
 import { omit } from 'lodash/object';
 import './Form.scss';
 
-import SignatureContainer from '../SignatureContainer';
+import SignatureContainer from '../SignatureContainer/SignatureContainer';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { updateProfile } from '../slice';

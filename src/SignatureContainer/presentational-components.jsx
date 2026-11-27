@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Signature from '../Signature';
-import RepliesAndForwards from '../RepliesAndForwards';
+import Signature from '../Signature/Signature';
+import RepliesAndForwards from '../RepliesAndForwards/RepliesAndForwards';
 
 export const BrandSignatureContainer = ({
   signatureProps,

@@ -1,5 +1,5 @@
 import React from 'react';
-import 'bulma';
+import 'bulma/css/bulma.css';
 import './index.css';
 import App from './App';
 import store from './store';
