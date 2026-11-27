@@ -19,6 +19,20 @@
   gap: 0;
 }
 
+// Bulma 0.9 left levels as plain blocks on mobile, with the buttons on their
+// own line below the heading.
+@media screen and (max-width: 768px) {
+  .level,
+  .level-left,
+  .level-right {
+    display: block;
+  }
+
+  .level-left + .level-right {
+    margin-top: 1.5rem;
+  }
+}
+
 .button {
   min-width: 140px;
   margin-left: 1rem;

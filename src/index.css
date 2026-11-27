@@ -52,6 +52,20 @@
   border-color: transparent;
 }
 
+/* The "Copied!" state: Bulma 0.9 white text, 2.5% hover darkening and a focus
+   ring after a mouse click. */
+.button.is-success {
+  --bulma-success-invert-l: 100%;
+  --bulma-button-border-width: 1px;
+  --bulma-button-hover-background-l-delta: -2.5%;
+  --bulma-button-active-background-l-delta: -5%;
+  border-color: transparent;
+}
+
+.button.is-success:focus:not(:active) {
+  box-shadow: 0 0 0 0.125em rgba(72, 199, 142, 0.25);
+}
+
 .content ol {
   margin-top: 1em;
 }
