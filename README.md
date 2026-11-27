@@ -23,7 +23,7 @@ MIT, See: [LICENSE](https://github.com/Readify/telstra-purple-signatures/blob/ma
 
 We host this webpage using [GitHub Pages](https://pages.github.com/) and a custom domain [https://signatures.makerx.tech](https://signatures.makerx.tech) with HTTPS enforced.
 
-Check out the `CI.yml` and `CD.yml` files for how this is completed using GitHub Actions.
+Check out the `ci.yml` and `cd.yml` files for how this is completed using GitHub Actions.
 
 ### Visual Studio Code
 
@@ -43,4 +43,4 @@ Requires Node 24 (see `.nvmrc`). Install dependencies with `npm ci`, then:
 
 ### Supported browsers for copying
 
-The copy buttons use the async Clipboard API, which needs HTTPS (or localhost). The "Copy signature" buttons copy HTML with `ClipboardItem`, which needs Chrome, Edge, Safari 13.1+ or Firefox 127+. On older browsers those buttons show "Copy failed", while the "Copy text only" buttons still work.
+Copying uses the async Clipboard API, so the page must be served over HTTPS or from localhost. The "Copy signature" buttons copy HTML with `ClipboardItem`, which requires Chrome, Edge, Safari 13.1 or later, or Firefox 127 or later. In other browsers those buttons show "Copy failed", and the "Copy text only" buttons still work.

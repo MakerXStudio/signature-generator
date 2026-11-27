@@ -1,6 +1,5 @@
 name: Build and Deploy
 
-# On push to main (merged PR) - run the tests, build and deploy it.
 on:
   push:
     branches:

@@ -87,8 +87,8 @@ describe('clipboard user gesture guard', () => {
   });
 
   it('rejects a write made after an await under fake timers', async () => {
-    // shouldAdvanceTime lets React Testing Library's setTimeout(0) between
-    // user-event steps fire; it only detects Jest's fake timers.
+    // React Testing Library only detects Jest fake timers, so shouldAdvanceTime
+    // is needed for its setTimeout(0) between user-event steps to fire.
     vi.useFakeTimers({ shouldAdvanceTime: true });
     const user = userEvent.setup({
       advanceTimers: (ms) => vi.advanceTimersByTime(ms),

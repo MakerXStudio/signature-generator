@@ -10,10 +10,10 @@ updates:
       development:
         dependency-type: development
     # TypeScript is installed twice through npm aliases: `@typescript/native`
-    # (TS 7, provides `tsc`) and `typescript` (the TS 6 line, for typescript-eslint).
-    # Dependabot skips `npm:` alias entries today, so bump both by hand.
-    # If it starts updating them, never move `typescript` to a new major:
-    # it must stay on a version typescript-eslint supports.
+    # (TS 7, provides `tsc`) and `typescript` (TS 6, for typescript-eslint).
+    # Dependabot skips `npm:` alias entries, so update both by hand.
+    # If Dependabot starts updating them, this rule keeps `typescript` on a
+    # major that typescript-eslint supports.
     ignore:
       - dependency-name: typescript
         update-types:

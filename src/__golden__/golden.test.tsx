@@ -6,11 +6,8 @@ import userEvent from '@testing-library/user-event';
 import Form from '../Form/Form';
 import { mockClipboard, type ClipboardWrite } from '../testUtils/clipboard';
 
-// Golden (characterization) tests: they record exactly what each copy button
-// puts on the clipboard, read back from a mocked navigator.clipboard. The HTML
-// goldens hold the text/html the HTML buttons write (the rendered markup as
-// the HTML parser normalizes it); the text goldens hold what the text buttons
-// write.
+// Characterization tests: each golden holds exactly what one copy button writes
+// to the clipboard. HTML goldens hold the parser-normalized markup.
 
 type GoldenProfile = Partial<Record<keyof typeof labels, string | true>>;
 
@@ -120,8 +117,6 @@ describe.each(Object.entries(profiles))(
       repliesText: `${profileName}-replies-and-forwards.txt`,
     };
 
-    // The HTML buttons write text/html plus the matching text builder's
-    // output as text/plain; the text buttons write text/plain only.
     const mimeTypes = {
       signatureHtml: ['text/html', 'text/plain'],
       signatureText: ['text/plain'],

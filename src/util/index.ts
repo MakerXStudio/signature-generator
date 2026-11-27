@@ -6,13 +6,11 @@ export function parseMobile(mobileNum: undefined): null;
 export function parseMobile(mobileNum: string | undefined): string | null {
   if (mobileNum === undefined) return null;
 
-  // some random number, trust the user
   if (
     !isValidPhoneNumber(mobileNum) &&
     !isValidPhoneNumber(constants.default.countryCode + mobileNum)
   )
     return mobileNum;
-  // default to preset country code when the international prefix '+' is absence
   if (mobileNum.search(/\+/) < 0) {
     mobileNum = constants.default.countryCode + mobileNum;
   }

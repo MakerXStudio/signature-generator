@@ -15,13 +15,10 @@ export class FakeClipboardItem {
 // What one copy put on the clipboard, keyed by MIME type.
 export type ClipboardWrite = Record<string, string>;
 
-// Safari rejects clipboard writes made after the user gesture has ended, such
-// as after an `await` in the click handler. To catch that in tests, the mock
-// only accepts writes made while a click is being dispatched. A capturing
-// listener on window runs first in every click dispatch; it marks the click
-// active and queues a microtask to clear the mark. That microtask is queued
-// before anything a handler awaits, so it always runs before the code after
-// the handler's first `await`. It uses a promise rather than queueMicrotask so
+// Safari rejects clipboard writes after the click gesture ends (for example
+// after an `await`), so the mock accepts writes only during a click dispatch.
+// The capturing listener clears the flag in a microtask that runs before code
+// after a handler's first `await`; it uses a promise, not queueMicrotask, so
 // fake timers cannot replace it.
 let clickActive = false;
 let gestureGuardInstalled = false;
@@ -70,8 +67,6 @@ export const inClick = <T>(fn: () => T): T => {
 
 // Installs a mocked navigator.clipboard and a global ClipboardItem. Call it
 // after userEvent.setup(), which replaces navigator.clipboard with its own stub.
-// write and writeText reject with NotAllowedError, as Safari does, unless they
-// are called synchronously within a click dispatch.
 export const mockClipboard = () => {
   installGestureGuard();
   const writes: Promise<ClipboardWrite>[] = [];
