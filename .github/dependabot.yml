@@ -4,18 +4,28 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 3
     groups:
       production:
         dependency-type: production
+        update-types:
+          - minor
+          - patch
       development:
         dependency-type: development
-    # TypeScript is installed twice through npm aliases: `@typescript/native`
-    # (TS 7, provides `tsc`) and `typescript` (TS 6, for typescript-eslint).
-    # Dependabot skips `npm:` alias entries, so update both by hand.
-    # If Dependabot starts updating them, this rule keeps `typescript` on a
-    # major that typescript-eslint supports.
+        update-types:
+          - minor
+          - patch
+    # `typescript` (TS 6, for typescript-eslint) and `@typescript/native`
+    # (TS 7, provides `tsc`) are npm aliases, which Dependabot skips today,
+    # so bump them by hand. These entries are a guard so the TS 6 line used
+    # by typescript-eslint is not moved to a new major.
     ignore:
       - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+      - dependency-name: '@typescript/typescript6'
         update-types:
           - version-update:semver-major
 
@@ -23,3 +33,5 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 3
