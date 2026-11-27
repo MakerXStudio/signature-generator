@@ -68,7 +68,7 @@ export const Form = () => {
     inputName: keyof Profile,
     inputVal: string | boolean | undefined,
     placeholder: string | undefined,
-    type = 'text'
+    type = 'text',
   ) => {
     if (type === 'checkbox') {
       return (
@@ -97,11 +97,9 @@ export const Form = () => {
   const renderHtmlForInputs = (
     formInputs: FormInputs,
     placeholders: Partial<Record<keyof Profile, string>>,
-    values: Profile
+    values: Profile,
   ) => {
-    return (
-      Object.entries(formInputs) as [InputName, FormInput][]
-    )
+    return (Object.entries(formInputs) as [InputName, FormInput][])
       .sort((a, b) => a[1].order - b[1].order)
       .map(([key, { order, ...rest }]) => ({ key, ...rest }))
       .map((inputObj) => {
@@ -128,7 +126,7 @@ export const Form = () => {
                   inputName,
                   values[inputName],
                   placeholders[inputName],
-                  type
+                  type,
                 )}
               </div>
             </div>

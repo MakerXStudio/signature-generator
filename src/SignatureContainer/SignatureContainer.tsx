@@ -11,7 +11,7 @@ import { useAppSelector } from '../hooks';
 
 const assignPlaceholders = <K extends string>(
   props: Record<K, string>,
-  placeholders: NoInfer<Record<K, string>>
+  placeholders: NoInfer<Record<K, string>>,
 ): Record<K, string> => {
   const isBlank = (a: string | null | undefined) =>
     a === '' || a === null || a === undefined;
@@ -58,7 +58,7 @@ const SignatureContainer = () => {
         supportHotline,
         supportEmail,
       },
-      placeholders
+      placeholders,
     ),
     addGPTW,
     brandLogo: brandInfo.brandLogo,

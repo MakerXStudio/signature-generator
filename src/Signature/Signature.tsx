@@ -127,7 +127,7 @@ const Signature = (props: SignatureProps) => {
                         <a
                           href={`https://twitter.com/${twitter.replace(
                             '@',
-                            ''
+                            '',
                           )}`}
                           rel="noopener noreferrer"
                           target="_blank"

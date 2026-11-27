@@ -35,7 +35,8 @@ const profiles: Record<string, Record<string, string | boolean>> = {
 type Copy = { type: 'text' | 'html'; content: string };
 
 const captureCopy = (): Copy => {
-  const textarea = document.querySelector<HTMLTextAreaElement>('body > textarea');
+  const textarea =
+    document.querySelector<HTMLTextAreaElement>('body > textarea');
   if (textarea) return { type: 'text', content: textarea.value };
 
   const selection = window.getSelection();
@@ -85,7 +86,7 @@ describe('copied signatures', () => {
         const { container } = render(
           <Provider store={store}>
             <Form />
-          </Provider>
+          </Provider>,
         );
 
         for (const [field, value] of Object.entries(profile)) {
@@ -99,7 +100,7 @@ describe('copied signatures', () => {
 
         const buttonElements = buttons.map(
           ({ label, index }) =>
-            screen.getAllByRole('button', { name: label })[index]
+            screen.getAllByRole('button', { name: label })[index],
         );
 
         for (const [i, button] of buttons.entries()) {
@@ -111,10 +112,10 @@ describe('copied signatures', () => {
           await expect(copy.content).toMatchFileSnapshot(
             `./__fixtures__/clipboard/${profileName}-${button.name}.${
               button.type === 'text' ? 'txt' : 'html'
-            }`
+            }`,
           );
         }
       });
-    }
+    },
   );
 });

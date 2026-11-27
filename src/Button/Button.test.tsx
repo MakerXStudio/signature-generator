@@ -20,7 +20,7 @@ describe('<Button>', () => {
         classBefore="button"
         classAfter="button is-success"
         onClickHandler={onClickHandler}
-      />
+      />,
     );
 
     const button = screen.getByRole('button');

@@ -10,7 +10,7 @@ type SignatureState = {
 const initialState: SignatureState = {
   profile: Object.keys(constants.placeholders).reduce(
     (result, key) => Object.assign(result, { [key]: '' }),
-    {} as Profile
+    {} as Profile,
   ),
 };
 
@@ -20,7 +20,7 @@ export const signatureSlice = createSlice({
   reducers: {
     updateProfile: (
       state,
-      action: PayloadAction<{ name: keyof Profile; value: string | boolean }>
+      action: PayloadAction<{ name: keyof Profile; value: string | boolean }>,
     ) => {
       Object.assign(state.profile, {
         [action.payload.name]: action.payload.value,

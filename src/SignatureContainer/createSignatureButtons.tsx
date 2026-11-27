@@ -32,7 +32,7 @@ const buttonMaker = (clickHandler: () => void, isText: boolean) => {
 };
 export const createButtons = (
   signatureProps: SignatureProps,
-  placeholders: Placeholders
+  placeholders: Placeholders,
 ): SignatureButtons => {
   const clickHandlers = {
     CopySignatureText: () =>
@@ -46,7 +46,7 @@ export const createButtons = (
           ...signatureProps,
           placeholders: placeholders,
         },
-        Signature
+        Signature,
       ),
     CopyRepliesAndForwardsText: () =>
       copyRepliesAndForwardsText({
@@ -59,7 +59,7 @@ export const createButtons = (
           ...signatureProps,
           placeholders: placeholders,
         },
-        RepliesAndForwards
+        RepliesAndForwards,
       ),
   };
 
@@ -77,6 +77,6 @@ export const createButtons = (
     ])
     .reduce(
       (result, item) => Object.assign(result, { [item[0]]: item[1] }),
-      {} as SignatureButtons
+      {} as SignatureButtons,
     );
 };

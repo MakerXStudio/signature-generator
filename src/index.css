@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 /* Keep the page looking as it did with Bulma 0.9: neutral greys, the 0.9 link
@@ -22,9 +21,10 @@
   --bulma-link-on-scheme-l: 53%;
   --bulma-link-invert-l: 100%;
   --bulma-radius: 4px;
-  --bulma-family-primary: BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    Helvetica, Arial, sans-serif;
+  --bulma-family-primary:
+    BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
   --bulma-focus-shadow-size: 0 0 0 0.125em;
 }
 
@@ -87,10 +87,10 @@ body {
 }
 
 .content {
-   padding: 2rem;
+  padding: 2rem;
 }
 
-.notoppad { 
+.notoppad {
   padding-top: 0;
 }
 
@@ -101,6 +101,6 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

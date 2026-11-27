@@ -11,7 +11,7 @@ const renderForm = () => {
   return render(
     <Provider store={store}>
       <Form />
-    </Provider>
+    </Provider>,
   );
 };
 
@@ -32,7 +32,7 @@ describe('<Form>', () => {
     renderForm();
 
     expect(
-      screen.queryByAltText('MakerX Best Workplaces')
+      screen.queryByAltText('MakerX Best Workplaces'),
     ).not.toBeInTheDocument();
 
     await user.click(screen.getByLabelText('Add GPTW'));
