@@ -1,10 +1,7 @@
 import React, { type ComponentType } from 'react';
 import constants from '../constants';
 import ReactDOMServer from 'react-dom/server';
-import {
-  formatPhoneNumberIntl,
-  isValidPhoneNumber,
-} from 'react-phone-number-input';
+import parsePhoneNumber, { isValidPhoneNumber } from 'libphonenumber-js';
 import type { CopyProps, SignatureProps } from '../types';
 
 const brandInfo = constants.brandInfo;
@@ -25,7 +22,7 @@ export function parseMobile(mobileNum: string | undefined): string | null {
     mobileNum = constants.default.countryCode + mobileNum;
   }
 
-  return formatPhoneNumberIntl(mobileNum);
+  return parsePhoneNumber(mobileNum)?.formatInternational() ?? '';
 }
 
 const copyText = (text: string) => {
@@ -92,6 +89,10 @@ export const copySignature = (
 
   const container = document.createElement('div');
   container.innerHTML = html;
+  // React 19 prepends a preload link for each <img>; keep them out of the pasted signature
+  container
+    .querySelectorAll('link[rel="preload"]')
+    .forEach((link) => link.remove());
 
   container.style.position = 'fixed';
   container.style.pointerEvents = 'none';
