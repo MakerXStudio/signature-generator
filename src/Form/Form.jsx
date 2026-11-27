@@ -1,4 +1,3 @@
-import React from 'react';
 import { omit } from 'lodash/object';
 import './Form.scss';
 

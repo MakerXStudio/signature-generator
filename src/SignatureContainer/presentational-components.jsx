@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Signature from '../Signature';
 import RepliesAndForwards from '../RepliesAndForwards';
 

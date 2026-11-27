@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import RepliesAndForwards from './RepliesAndForwards';
 import { expectGolden } from '../test/golden';

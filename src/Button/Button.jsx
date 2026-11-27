@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Button = (props) => {
   const { textBefore, textAfter, classBefore, classAfter, onClickHandler } =

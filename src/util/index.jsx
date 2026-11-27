@@ -1,4 +1,3 @@
-import React from 'react';
 import constants from '../constants';
 import ReactDOMServer from 'react-dom/server';
 import { entries } from 'lodash/object';
@@ -162,5 +161,5 @@ export const copySignature = (props, SignatureComponent) => {
 
 export const stripObject = (obj) =>
   entries(obj)
-    .filter(([key, val]) => val !== null && val !== undefined)
+    .filter(([, val]) => val !== null && val !== undefined)
     .reduce((result, [key, val]) => Object.assign(result, { [key]: val }), {});

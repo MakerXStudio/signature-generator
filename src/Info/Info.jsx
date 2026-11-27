@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -98,7 +98,7 @@ export default function BasicTabs() {
                     Settings icon and then See all settings.
                   </li>
                   <li style={{ marginBottom: '0.5rem' }}>
-                    "Signature" section, add your signature text in the box.
+                    &quot;Signature&quot; section, add your signature text in the box.
                   </li>
                   <li style={{ marginBottom: '0.5rem' }}>
                     At the bottom of the page, click Save Changes.
@@ -139,7 +139,7 @@ export default function BasicTabs() {
                     <span style={{ fontWeight: 'bold' }}>
                       Outlook web access (OWA):{' '}
                     </span>
-                    Cog (top-right) &gt; "View all Outlook settings" link (bottom)
+                    Cog (top-right) &gt; &quot;View all Outlook settings&quot; link (bottom)
                     &gt; Mail &gt; Compose and reply &gt; Email signature
                   </li>
                 </ul>

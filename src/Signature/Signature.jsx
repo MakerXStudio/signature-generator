@@ -1,4 +1,3 @@
-import React from 'react';
 import constants from '../constants';
 import { parseMobile } from '../util';
 
@@ -215,7 +214,7 @@ const Signature = (props) => {
               >
                 This email may contain confidential information.
                 <br />
-                If I've sent it to you by accident, please delete it
+                If I&apos;ve sent it to you by accident, please delete it
                 immediately.
               </td>
             </tr>

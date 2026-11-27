@@ -1,5 +1,3 @@
-import React from 'react';
-
 import constants from '../constants';
 import './SignatureContainer.scss';
 import { BrandSignatureContainer } from './presentational-components';
@@ -17,9 +15,9 @@ const assignPlaceholders = (props, placeholders) => {
   return result;
 };
 
-export const createContainerProps = (props) => {};
+export const createContainerProps = () => {};
 
-const SignatureContainer = (props) => {
+const SignatureContainer = () => {
   var profile = useSelector((state) => state.signature.profile);
 
   const {

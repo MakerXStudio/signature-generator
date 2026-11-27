@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Signature from './Signature';
 import { expectGolden } from '../test/golden';
