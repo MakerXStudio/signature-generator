@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      production:
+        dependency-type: production
+      development:
+        dependency-type: development
+    # TypeScript is installed twice through npm aliases: `@typescript/native`
+    # (TS 7, provides `tsc`) and `typescript` (the TS 6 line, for typescript-eslint).
+    # Dependabot skips `npm:` alias entries today, so bump both by hand.
+    # If it starts updating them, never move `typescript` to a new major:
+    # it must stay on a version typescript-eslint supports.
+    ignore:
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

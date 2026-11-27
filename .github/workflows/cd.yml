@@ -1,6 +1,6 @@
 name: Build and Deploy
 
-# On push to main (merged PR) - run the build and deploy it.
+# On push to main (merged PR) - run the tests, build and deploy it.
 on:
   push:
     branches:
@@ -14,20 +14,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
 
-      - name: Install and Build
-        uses: actions/setup-node@v2
+      - name: Install Node
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
 
       - run: npm ci
 
+      - run: npm run test:ci
+
       - run: npm run build
-        env:
-          CI: true
 
       # Prevent any issues/conflicts with Jekyll; https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/
       - name: Add .nojekyll file

@@ -29,47 +29,18 @@ Check out the `CI.yml` and `CD.yml` files for how this is completed using GitHub
 
 `launch.json` support is provided to launch this project by hitting F5.
 
-### Create React App
+### Development
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Requires Node 24 (see `.nvmrc`). Install dependencies with `npm ci`, then:
 
-In the project directory, you can run:
+- `npm start` (or `npm run dev`): runs the Vite dev server at [http://localhost:5173](http://localhost:5173) with hot reload.
+- `npm test`: runs the Vitest tests in watch mode. `npm run test:ci` runs them once.
+- `npm run lint`: runs ESLint. `npm run lint:fix` fixes what it can.
+- `npm run format:check`: checks formatting with Prettier. `npm run format` rewrites files.
+- `npm run check-types`: type checks with `tsc`.
+- `npm run build`: type checks and builds the app for production into the `build` folder.
+- `npm run preview`: serves the production build locally.
 
-#### `npm start`
+### Supported browsers for copying
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-#### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-#### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-#### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-### Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The copy buttons use the async Clipboard API, which needs HTTPS (or localhost). The "Copy signature" buttons copy HTML with `ClipboardItem`, which needs Chrome, Edge, Safari 13.1+ or Firefox 127+. On older browsers those buttons show "Copy failed", while the "Copy text only" buttons still work.
