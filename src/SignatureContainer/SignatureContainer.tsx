@@ -6,8 +6,6 @@ import { BrandSignatureContainer } from './presentational-components';
 import { createButtons } from './createSignatureButtons';
 import { stripObject } from '../util';
 
-import { useSelector } from 'react-redux';
-import type { RootState } from '../store';
 import type { Profile } from '../types';
 
 const withPlaceholder = (
@@ -16,9 +14,11 @@ const withPlaceholder = (
 ) =>
   value === '' || value === null || value === undefined ? placeholder : value;
 
-const SignatureContainer = (_props: Partial<Profile>) => {
-  const profile = useSelector((state: RootState) => state.signature.profile);
+interface SignatureContainerProps {
+  profile: Profile;
+}
 
+const SignatureContainer = ({ profile }: SignatureContainerProps) => {
   const {
     name,
     pronoun,

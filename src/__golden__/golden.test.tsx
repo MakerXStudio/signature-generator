@@ -3,9 +3,6 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import signatureReducer from '../slice';
 import Form from '../Form/Form';
 
 // Golden (characterization) tests: they record exactly what each copy button
@@ -43,7 +40,6 @@ const labels = {
 const captureClipboard = async (
   profile: GoldenProfile,
 ): Promise<Record<string, string | undefined>> => {
-  const store = configureStore({ reducer: { signature: signatureReducer } });
   const user = userEvent.setup();
 
   const captured: (string | undefined)[] = [];
@@ -59,11 +55,7 @@ const captureClipboard = async (
   document.execCommand = execCommand;
 
   try {
-    render(
-      <Provider store={store}>
-        <Form />
-      </Provider>,
-    );
+    render(<Form />);
 
     for (const [field, value] of Object.entries(profile) as [
       keyof typeof labels,

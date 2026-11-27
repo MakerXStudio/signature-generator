@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import SignatureContainer from '../SignatureContainer/SignatureContainer';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { updateProfile } from '../slice';
-
 import constants from '../constants';
-import type { RootState } from '../store';
+import { initialProfile } from '../profile';
 import type { Placeholders, Profile } from '../types';
 
 type InputType = 'text' | 'email' | 'tel' | 'checkbox';
@@ -23,7 +20,7 @@ interface FormInput {
 }
 
 export const Form = () => {
-  const dispatch = useDispatch();
+  const [profile, setProfile] = useState<Profile>(initialProfile);
 
   const placeholders = constants.placeholders;
 
@@ -50,17 +47,13 @@ export const Form = () => {
     addGPTW: { text: '', order: 9 },
   } satisfies Partial<Record<keyof Profile, FormInput>>;
 
-  const profile = useSelector((state: RootState) => {
-    return state.signature.profile;
-  });
-
   const handleChange = (name: keyof Profile, value: Profile[keyof Profile]) => {
-    dispatch(updateProfile({ name, value }));
+    setProfile((current) => ({ ...current, [name]: value }));
   };
 
   const inputHtml = (
     inputName: keyof Profile,
-    inputVal: Profile[keyof Profile] | undefined,
+    inputVal: Profile[keyof Profile],
     placeholder: string | undefined,
     type: InputType = 'text',
   ) => {
@@ -91,7 +84,7 @@ export const Form = () => {
   const renderHtmlForInputs = (
     formInputs: Partial<Record<keyof Profile, FormInput>>,
     placeholders: Placeholders,
-    values: Partial<Profile>,
+    values: Profile,
   ) => {
     return (Object.entries(formInputs) as [keyof Profile, FormInput][])
       .sort((a, b) => a[1].order - b[1].order)
@@ -137,7 +130,7 @@ export const Form = () => {
       <form>
         {inputs}
         <hr />
-        <SignatureContainer {...profile} />
+        <SignatureContainer profile={profile} />
       </form>
     </div>
   );
