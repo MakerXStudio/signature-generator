@@ -1,6 +1,4 @@
 import React from 'react';
-import { omit } from 'lodash/object';
-import './Form.scss';
 
 import SignatureContainer from '../SignatureContainer/SignatureContainer';
 
@@ -73,7 +71,7 @@ export const Form = () => {
   const renderHtmlForInputs = (formInputs, placeholders, values) => {
     return Object.entries(formInputs)
       .sort((a, b) => a[1].order - b[1].order)
-      .map((obj) => ({ key: obj[0], ...omit(obj[1], 'order') }))
+      .map(([key, { order, ...rest }]) => ({ key, ...rest }))
       .map((inputObj) => {
         const inputName = inputObj.key;
         const { label, type = 'text', required = false } = labels[inputName];

@@ -17,8 +17,6 @@ const assignPlaceholders = (props, placeholders) => {
   return result;
 };
 
-export const createContainerProps = (props) => {};
-
 const SignatureContainer = (props) => {
   var profile = useSelector((state) => state.signature.profile);
 
@@ -28,22 +26,17 @@ const SignatureContainer = (props) => {
     title,
     qualifications,
     twitter,
-    sigType,
     mobile,
     email,
-    supportHotline,
-    supportEmail,
     brandLogo,
     brandName,
     brandLink,
     brandLinkName,
-    brandAnimatedLogo,
     addGPTW,
   } = profile;
 
   const placeholders = constants.placeholders;
   const brandInfo = constants.brandInfo;
-  const brandGPTWLogo = constants.brandGPTWLogo;
 
   const signatureProps = stripObject({
     title,
@@ -51,21 +44,10 @@ const SignatureContainer = (props) => {
     pronoun,
     twitter,
     phone: null,
-    ...assignPlaceholders(
-      {
-        name,
-        mobile,
-        email,
-        sigType,
-        supportHotline,
-        supportEmail,
-      },
-      placeholders
-    ),
+    ...assignPlaceholders({ name, mobile, email }, placeholders),
     addGPTW,
-    brandGPTWLogo,
     ...assignPlaceholders(
-      { brandLogo, brandName, brandLink, brandLinkName, brandAnimatedLogo },
+      { brandLogo, brandName, brandLink, brandLinkName },
       brandInfo
     ),
   });
