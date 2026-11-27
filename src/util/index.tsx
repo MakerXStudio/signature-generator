@@ -1,25 +1,30 @@
 import React from 'react';
+import type { ComponentType } from 'react';
 import constants from '../constants';
+import type { Placeholders } from '../constants';
+import type { SignatureProps } from '../types';
 import ReactDOMServer from 'react-dom/server';
-import { entries } from 'lodash/object';
 import {
   formatPhoneNumberIntl,
   isValidPhoneNumber,
 } from 'react-phone-number-input';
+import type { Value as PhoneNumber } from 'react-phone-number-input';
 
 const brandInfo = constants.brandInfo;
 
-const multiSplice = (toAddIndexes, val, array) =>
+const multiSplice = (toAddIndexes: number[], val: string, array: string[]) =>
   toAddIndexes.forEach((index) => array.splice(index, 0, val));
 
-export const camelize = (str) => {
-  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+export const camelize = (str: string) => {
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index: number) {
     if (+match === 0) return '';
     return index === 0 ? match.toLowerCase() : match.toUpperCase();
   });
 };
 
-export const parseMobile = (mobileNum) => {
+export function parseMobile(mobileNum: string): string;
+export function parseMobile(mobileNum: undefined): null;
+export function parseMobile(mobileNum: string | undefined): string | null {
   if (mobileNum === undefined) return null;
 
   // some random number, trust the user
@@ -33,10 +38,10 @@ export const parseMobile = (mobileNum) => {
     mobileNum = constants.default.countryCode + mobileNum;
   }
 
-  return formatPhoneNumberIntl(mobileNum);
-};
+  return formatPhoneNumberIntl(mobileNum as PhoneNumber);
+}
 
-export const parseLandLine = (mobileNum) => {
+export const parseLandLine = (mobileNum: string | undefined) => {
   if (mobileNum === undefined) return null;
 
   const mobileFormatted = mobileNum.replace(/[\s|+]/g, '');
@@ -52,7 +57,7 @@ export const parseLandLine = (mobileNum) => {
   return numberArr.join('');
 };
 
-const copyText = (text) => {
+const copyText = (text: string) => {
   const container = document.createElement('textarea');
   container.value = text;
   document.body.appendChild(container);
@@ -61,7 +66,9 @@ const copyText = (text) => {
   document.body.removeChild(container);
 };
 
-export const copySignatureText = (props) => {
+export type CopyProps = SignatureProps & { placeholders: Placeholders };
+
+export const copySignatureText = (props: CopyProps) => {
   const {
     name,
     pronoun,
@@ -103,7 +110,7 @@ export const copySignatureText = (props) => {
   copyText(textArr.filter((val) => val !== null).join('\n'));
 };
 
-export const copyRepliesAndForwardsText = (props) => {
+export const copyRepliesAndForwardsText = (props: CopyProps) => {
   const {
     name,
     pronoun,
@@ -133,7 +140,10 @@ export const copyRepliesAndForwardsText = (props) => {
   copyText(textArr.filter((val) => val !== null).join('\n'));
 };
 
-export const copySignature = (props, SignatureComponent) => {
+export const copySignature = (
+  props: CopyProps,
+  SignatureComponent: ComponentType<CopyProps>
+) => {
   // You need to copy the signature as richtext html if you want it to paste nicely into outlook
   // credit: https://stackoverflow.com/questions/34191780/javascript-copy-string-to-clipboard-as-text-html
   const html = ReactDOMServer.renderToStaticMarkup(
@@ -149,18 +159,27 @@ export const copySignature = (props, SignatureComponent) => {
 
   document.body.appendChild(container);
 
-  window.getSelection().removeAllRanges();
+  window.getSelection()!.removeAllRanges();
 
   const range = document.createRange();
   range.selectNode(container);
-  window.getSelection().addRange(range);
+  window.getSelection()!.addRange(range);
 
   document.execCommand('copy');
 
   document.body.removeChild(container);
 };
 
-export const stripObject = (obj) =>
-  entries(obj)
-    .filter(([key, val]) => val !== null && val !== undefined)
-    .reduce((result, [key, val]) => Object.assign(result, { [key]: val }), {});
+// Drops the null and undefined values; keys typed as only null or undefined
+// are dropped from the type too.
+type Stripped<T> = {
+  [K in keyof T as T[K] extends null | undefined ? never : K]: T[K];
+};
+
+export const stripObject = <T extends object>(obj: T): Stripped<T> =>
+  Object.entries(obj)
+    .filter(([, val]) => val !== null && val !== undefined)
+    .reduce(
+      (result, [key, val]) => Object.assign(result, { [key]: val }),
+      {} as Stripped<T>
+    );

@@ -10,7 +10,7 @@ import Form from './Form/Form';
 // copy time. The fixtures under __fixtures__/clipboard are the contract; a
 // change to any of them changes what people paste into their email client.
 
-const profiles = {
+const profiles: Record<string, Record<string, string | boolean>> = {
   filled: {
     name: 'Alex Example',
     email: 'alex.example@makerx.com.au',
@@ -32,14 +32,19 @@ const profiles = {
 // The copy functions append a textarea (text) or a div (HTML) to the body,
 // select it, call execCommand('copy') and remove it straight away, so the
 // copied content has to be read while execCommand runs.
-const captureCopy = () => {
-  const textarea = document.querySelector('body > textarea');
+type Copy = { type: 'text' | 'html'; content: string };
+
+const captureCopy = (): Copy => {
+  const textarea = document.querySelector<HTMLTextAreaElement>('body > textarea');
   if (textarea) return { type: 'text', content: textarea.value };
 
   const selection = window.getSelection();
-  if (selection.rangeCount !== 1) throw new Error('Nothing selected to copy');
+  if (!selection || selection.rangeCount !== 1)
+    throw new Error('Nothing selected to copy');
   const range = selection.getRangeAt(0);
-  const container = range.startContainer.childNodes[range.startOffset];
+  const container = range.startContainer.childNodes[
+    range.startOffset
+  ] as Element;
   return { type: 'html', content: container.innerHTML };
 };
 
@@ -51,7 +56,7 @@ const buttons = [
 ];
 
 describe('copied signatures', () => {
-  let copies;
+  let copies: Copy[];
 
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
@@ -66,7 +71,7 @@ describe('copied signatures', () => {
   afterEach(() => {
     act(() => vi.runOnlyPendingTimers());
     vi.useRealTimers();
-    delete document.execCommand;
+    Reflect.deleteProperty(document, 'execCommand');
   });
 
   describe.each(Object.entries(profiles))(
@@ -84,8 +89,8 @@ describe('copied signatures', () => {
         );
 
         for (const [field, value] of Object.entries(profile)) {
-          const input = container.querySelector(`#input-${field}`);
-          if (value === true) {
+          const input = container.querySelector(`#input-${field}`)!;
+          if (typeof value === 'boolean') {
             await user.click(input);
           } else {
             await user.type(input, value);

@@ -1,20 +1,39 @@
 import React from 'react';
-import { omit } from 'lodash/object';
 import './Form.scss';
 
 import SignatureContainer from '../SignatureContainer/SignatureContainer';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { updateProfile } from '../slice';
+import type { Profile } from '../types';
 
 import constants from '../constants';
 
+type InputName = Extract<
+  keyof Profile,
+  | 'name'
+  | 'pronoun'
+  | 'title'
+  | 'qualifications'
+  | 'mobile'
+  | 'email'
+  | 'twitter'
+  | 'addGPTW'
+>;
+type FormInput = { text: string; order: number };
+type FormInputs = Record<InputName, FormInput>;
+type Labels = Record<
+  InputName | 'phone',
+  { label: string; type?: string; required?: boolean }
+>;
+
 export const Form = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const placeholders = constants.placeholders;
+  const placeholders: Partial<Record<keyof Profile, string>> =
+    constants.placeholders;
 
-  const labels = {
+  const labels: Labels = {
     name: { label: 'Your Name', required: true },
     pronoun: { label: 'Your Pronouns' },
     title: { label: 'Job Title' },
@@ -26,7 +45,7 @@ export const Form = () => {
     addGPTW: { label: 'Add GPTW', type: 'checkbox' },
   };
 
-  let formInputs = {
+  let formInputs: FormInputs = {
     name: { text: '', order: 2 },
     pronoun: { text: '', order: 3 },
     title: { text: '', order: 4 },
@@ -37,22 +56,27 @@ export const Form = () => {
     addGPTW: { text: '', order: 9 },
   };
 
-  var profile = useSelector((state) => {
+  var profile = useAppSelector((state) => {
     return state.signature.profile;
   });
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: keyof Profile, value: string | boolean) => {
     dispatch(updateProfile({ name, value }));
   };
 
-  const inputHtml = (inputName, inputVal, placeholder, type = 'text') => {
+  const inputHtml = (
+    inputName: keyof Profile,
+    inputVal: string | boolean | undefined,
+    placeholder: string | undefined,
+    type = 'text'
+  ) => {
     if (type === 'checkbox') {
       return (
         <input
           id={`input-${inputName}`}
           type={type}
           className="mt-3"
-          checked={inputVal}
+          checked={typeof inputVal === 'boolean' ? inputVal : undefined}
           onChange={(e) => handleChange(inputName, e.target.checked)}
         />
       );
@@ -64,16 +88,22 @@ export const Form = () => {
         type={type}
         placeholder={placeholder}
         style={{ width: '300px' }}
-        value={inputVal || ''}
+        value={typeof inputVal === 'string' ? inputVal : ''}
         onChange={(e) => handleChange(inputName, e.target.value)}
       />
     );
   };
 
-  const renderHtmlForInputs = (formInputs, placeholders, values) => {
-    return Object.entries(formInputs)
+  const renderHtmlForInputs = (
+    formInputs: FormInputs,
+    placeholders: Partial<Record<keyof Profile, string>>,
+    values: Profile
+  ) => {
+    return (
+      Object.entries(formInputs) as [InputName, FormInput][]
+    )
       .sort((a, b) => a[1].order - b[1].order)
-      .map((obj) => ({ key: obj[0], ...omit(obj[1], 'order') }))
+      .map(([key, { order, ...rest }]) => ({ key, ...rest }))
       .map((inputObj) => {
         const inputName = inputObj.key;
         const { label, type = 'text', required = false } = labels[inputName];
@@ -115,7 +145,7 @@ export const Form = () => {
       <form>
         {inputs}
         <hr />
-        <SignatureContainer {...profile} />
+        <SignatureContainer />
       </form>
     </div>
   );

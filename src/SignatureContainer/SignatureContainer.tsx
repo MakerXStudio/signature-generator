@@ -5,22 +5,28 @@ import './SignatureContainer.scss';
 import { BrandSignatureContainer } from './presentational-components';
 import { createButtons } from './createSignatureButtons';
 import { stripObject } from '../util';
+import type { SignatureProps } from '../types';
 
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../hooks';
 
-const assignPlaceholders = (props, placeholders) => {
-  const isBlank = (a) => a === '' || a === null || a === undefined;
-  const result = {};
-  for (const [key, value] of Object.entries(props)) {
+const assignPlaceholders = <K extends string>(
+  props: Record<K, string>,
+  placeholders: NoInfer<Record<K, string>>
+): Record<K, string> => {
+  const isBlank = (a: string | null | undefined) =>
+    a === '' || a === null || a === undefined;
+  const result = {} as Record<K, string>;
+  for (const key of Object.keys(props) as K[]) {
+    const value = props[key];
     result[key] = isBlank(value) ? placeholders[key] : value;
   }
   return result;
 };
 
-export const createContainerProps = (props) => {};
+export const createContainerProps = (props: unknown) => {};
 
-const SignatureContainer = (props) => {
-  var profile = useSelector((state) => state.signature.profile);
+const SignatureContainer = () => {
+  var profile = useAppSelector((state) => state.signature.profile);
 
   const {
     name,
@@ -28,24 +34,19 @@ const SignatureContainer = (props) => {
     title,
     qualifications,
     twitter,
-    sigType,
     mobile,
     email,
     supportHotline,
     supportEmail,
-    brandLogo,
-    brandName,
-    brandLink,
-    brandLinkName,
-    brandAnimatedLogo,
     addGPTW,
   } = profile;
 
   const placeholders = constants.placeholders;
   const brandInfo = constants.brandInfo;
-  const brandGPTWLogo = constants.brandGPTWLogo;
 
-  const signatureProps = stripObject({
+  // The profile has no brand fields, so the brand values always come from
+  // brandInfo.
+  const signatureProps: SignatureProps = stripObject({
     title,
     qualifications,
     pronoun,
@@ -56,21 +57,19 @@ const SignatureContainer = (props) => {
         name,
         mobile,
         email,
-        sigType,
         supportHotline,
         supportEmail,
       },
       placeholders
     ),
     addGPTW,
-    brandGPTWLogo,
-    ...assignPlaceholders(
-      { brandLogo, brandName, brandLink, brandLinkName, brandAnimatedLogo },
-      brandInfo
-    ),
+    brandLogo: brandInfo.brandLogo,
+    brandName: brandInfo.brandName,
+    brandLink: brandInfo.brandLink,
+    brandLinkName: brandInfo.brandLinkName,
   });
 
-  const buttons = createButtons(signatureProps, placeholders, false);
+  const buttons = createButtons(signatureProps, placeholders);
 
   var containerProps = {
     signatureProps,

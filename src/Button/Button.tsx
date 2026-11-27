@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 
-const Button = (props) => {
+type ButtonProps = {
+  textBefore: string;
+  textAfter: string;
+  classBefore: string;
+  classAfter: string;
+  onClickHandler: () => void;
+};
+
+const Button = (props: ButtonProps) => {
   const { textBefore, textAfter, classBefore, classAfter, onClickHandler } =
     props;
 

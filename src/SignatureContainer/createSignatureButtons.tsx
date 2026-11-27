@@ -1,4 +1,5 @@
 import React from 'react';
+import type { ReactNode } from 'react';
 
 import {
   copyRepliesAndForwardsText,
@@ -8,8 +9,11 @@ import {
 import Signature from '../Signature/Signature';
 import RepliesAndForwards from '../RepliesAndForwards/RepliesAndForwards';
 import Button from '../Button/Button';
+import type { Placeholders } from '../constants';
+import type { SignatureProps } from '../types';
+import type { SignatureButtons } from './presentational-components';
 
-const buttonMaker = (clickHandler, isText) => {
+const buttonMaker = (clickHandler: () => void, isText: boolean) => {
   const isSuccessClass = 'button is-success';
   const copiedText = 'Copied!';
   const classText = 'button';
@@ -26,7 +30,10 @@ const buttonMaker = (clickHandler, isText) => {
     />
   );
 };
-export const createButtons = (signatureProps, placeholders) => {
+export const createButtons = (
+  signatureProps: SignatureProps,
+  placeholders: Placeholders
+): SignatureButtons => {
   const clickHandlers = {
     CopySignatureText: () =>
       copySignatureText({
@@ -56,18 +63,20 @@ export const createButtons = (signatureProps, placeholders) => {
       ),
   };
 
-  return [
+  const buttons: { name: keyof SignatureButtons; isText: boolean }[] = [
     { name: 'CopySignatureText', isText: true },
     { name: 'CopySignatureHtml', isText: false },
     { name: 'CopyRepliesAndForwardsText', isText: true },
     { name: 'CopyRepliesAndForwardsHtml', isText: false },
-  ]
-    .map((buttonArr) => [
+  ];
+
+  return buttons
+    .map((buttonArr): [keyof SignatureButtons, ReactNode] => [
       buttonArr.name,
       buttonMaker(clickHandlers[buttonArr.name], buttonArr.isText),
     ])
     .reduce(
       (result, item) => Object.assign(result, { [item[0]]: item[1] }),
-      {}
+      {} as SignatureButtons
     );
 };

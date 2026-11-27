@@ -1,7 +1,15 @@
 import React from 'react';
 import './Header.scss';
 
-const Header = (props) => {
+type HeaderProps = {
+  brandInfo: {
+    appName: string;
+    companyName: string;
+    brandLink: string;
+  };
+};
+
+const Header = (props: HeaderProps) => {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="section" style={{ width: '100%' }}>

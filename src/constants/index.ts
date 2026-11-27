@@ -29,6 +29,8 @@ const constants = {
   default: {
     countryCode: '+61',
   },
-};
+} as const;
+
+export type Placeholders = typeof constants.placeholders;
 
 export default constants;

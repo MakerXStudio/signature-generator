@@ -2,9 +2,10 @@ import React from 'react';
 
 import constants from '../constants';
 import { parseMobile } from '../util';
+import type { SignatureProps } from '../types';
 const brandInfo = constants.brandInfo;
 
-const RepliesAndForwards = (props) => {
+const RepliesAndForwards = (props: SignatureProps) => {
   const {
     name,
     pronoun,
