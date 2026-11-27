@@ -12,12 +12,12 @@ import type { Profile } from '../types';
 
 const withPlaceholder = (
   value: string | null | undefined,
-  placeholder: string
+  placeholder: string,
 ) =>
   value === '' || value === null || value === undefined ? placeholder : value;
 
-const SignatureContainer = (props: Partial<Profile>) => {
-  var profile = useSelector((state: RootState) => state.signature.profile);
+const SignatureContainer = (_props: Partial<Profile>) => {
+  const profile = useSelector((state: RootState) => state.signature.profile);
 
   const {
     name,
@@ -52,7 +52,7 @@ const SignatureContainer = (props: Partial<Profile>) => {
 
   const buttons = createButtons(signatureProps, placeholders);
 
-  var containerProps = {
+  const containerProps = {
     signatureProps,
     ...buttons,
   };

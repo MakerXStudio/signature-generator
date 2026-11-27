@@ -145,8 +145,9 @@ export default function BasicTabs() {
                     <span style={{ fontWeight: 'bold' }}>
                       Outlook web access (OWA):{' '}
                     </span>
-                    Cog (top-right) &gt; "View all Outlook settings" link (bottom)
-                    &gt; Mail &gt; Compose and reply &gt; Email signature
+                    Cog (top-right) &gt; "View all Outlook settings" link
+                    (bottom) &gt; Mail &gt; Compose and reply &gt; Email
+                    signature
                   </li>
                 </ul>
               </li>

@@ -10,7 +10,7 @@ const renderButton = (onClickHandler: () => void = vi.fn()) =>
       classAfter="button is-success"
       textBefore="Copy text only"
       textAfter="Copied!"
-    />
+    />,
   );
 
 describe('<Button>', () => {

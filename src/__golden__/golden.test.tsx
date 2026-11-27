@@ -41,7 +41,7 @@ const labels = {
 };
 
 const captureClipboard = async (
-  profile: GoldenProfile
+  profile: GoldenProfile,
 ): Promise<Record<string, string | undefined>> => {
   const store = configureStore({ reducer: { signature: signatureReducer } });
   const user = userEvent.setup();
@@ -51,7 +51,7 @@ const captureClipboard = async (
     expect(command).toBe('copy');
     const node = document.body.lastElementChild;
     captured.push(
-      node instanceof HTMLTextAreaElement ? node.value : node?.innerHTML
+      node instanceof HTMLTextAreaElement ? node.value : node?.innerHTML,
     );
     return true;
   });
@@ -62,12 +62,12 @@ const captureClipboard = async (
     render(
       <Provider store={store}>
         <Form />
-      </Provider>
+      </Provider>,
     );
 
     for (const [field, value] of Object.entries(profile) as [
       keyof typeof labels,
-      string | true
+      string | true,
     ][]) {
       const input = screen.getByLabelText(labels[field]);
       if (value === true) {
@@ -124,9 +124,9 @@ describe.each(Object.entries(profiles))(
       expect(value?.length).toBeGreaterThan(0);
       expect(
         existsSync(join(dirname(fileURLToPath(import.meta.url)), file)),
-        `Golden file ${file} is missing. Goldens must never be regenerated; restore it from git.`
+        `Golden file ${file} is missing. Goldens must never be regenerated; restore it from git.`,
       ).toBe(true);
       await expect(value).toMatchFileSnapshot(`./${file}`);
     });
-  }
+  },
 );

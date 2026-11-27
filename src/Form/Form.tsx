@@ -39,7 +39,7 @@ export const Form = () => {
     addGPTW: { label: 'Add GPTW', type: 'checkbox' },
   };
 
-  let formInputs = {
+  const formInputs = {
     name: { text: '', order: 2 },
     pronoun: { text: '', order: 3 },
     title: { text: '', order: 4 },
@@ -50,7 +50,7 @@ export const Form = () => {
     addGPTW: { text: '', order: 9 },
   } satisfies Partial<Record<keyof Profile, FormInput>>;
 
-  var profile = useSelector((state: RootState) => {
+  const profile = useSelector((state: RootState) => {
     return state.signature.profile;
   });
 
@@ -62,7 +62,7 @@ export const Form = () => {
     inputName: keyof Profile,
     inputVal: Profile[keyof Profile] | undefined,
     placeholder: string | undefined,
-    type: InputType = 'text'
+    type: InputType = 'text',
   ) => {
     if (type === 'checkbox') {
       return (
@@ -91,7 +91,7 @@ export const Form = () => {
   const renderHtmlForInputs = (
     formInputs: Partial<Record<keyof Profile, FormInput>>,
     placeholders: Placeholders,
-    values: Partial<Profile>
+    values: Partial<Profile>,
   ) => {
     return (Object.entries(formInputs) as [keyof Profile, FormInput][])
       .sort((a, b) => a[1].order - b[1].order)
@@ -120,7 +120,7 @@ export const Form = () => {
                   inputName,
                   values[inputName],
                   placeholders[inputName],
-                  type
+                  type,
                 )}
               </div>
             </div>

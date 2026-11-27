@@ -9,7 +9,7 @@ interface SignatureState {
 const initialState: SignatureState = {
   profile: Object.entries(constants.placeholders).reduce<Partial<Profile>>(
     (result, item) => Object.assign(result, { [item[0]]: '' }),
-    {}
+    {},
   ),
 };
 
@@ -22,7 +22,7 @@ export const signatureSlice = createSlice({
       action: PayloadAction<{
         name: keyof Profile;
         value: Profile[keyof Profile];
-      }>
+      }>,
     ) => {
       Object.assign(state.profile, {
         [action.payload.name]: action.payload.value,

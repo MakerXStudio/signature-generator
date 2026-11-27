@@ -1,0 +1,4 @@
+build
+coverage
+src/__golden__/*.html
+src/__golden__/*.txt

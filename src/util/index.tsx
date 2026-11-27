@@ -82,12 +82,12 @@ export const copyRepliesAndForwardsText = (props: CopyProps) => {
 
 export const copySignature = (
   props: CopyProps,
-  SignatureComponent: ComponentType<SignatureProps>
+  SignatureComponent: ComponentType<SignatureProps>,
 ) => {
   // You need to copy the signature as richtext html if you want it to paste nicely into outlook
   // credit: https://stackoverflow.com/questions/34191780/javascript-copy-string-to-clipboard-as-text-html
   const html = ReactDOMServer.renderToStaticMarkup(
-    <SignatureComponent {...props} />
+    <SignatureComponent {...props} />,
   );
 
   const container = document.createElement('div');
@@ -118,8 +118,8 @@ type StripNull<T> = {
 
 export const stripObject = <T extends object>(obj: T): StripNull<T> =>
   Object.entries(obj)
-    .filter(([key, val]) => val !== null && val !== undefined)
+    .filter(([, val]) => val !== null && val !== undefined)
     .reduce(
       (result, [key, val]) => Object.assign(result, { [key]: val }),
-      {}
+      {},
     ) as StripNull<T>;
