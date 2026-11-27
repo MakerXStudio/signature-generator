@@ -23,8 +23,6 @@ const assignPlaceholders = <K extends string>(
   return result;
 };
 
-export const createContainerProps = (props: unknown) => {};
-
 const SignatureContainer = () => {
   var profile = useAppSelector((state) => state.signature.profile);
 

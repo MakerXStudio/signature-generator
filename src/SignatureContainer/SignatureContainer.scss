@@ -1,12 +1,22 @@
 .content {
   table {
+    // Bulma 0.9 styles that Bulma 1 dropped or moved to CSS variables. Chromium
+    // inlines matched styles into the copied signature, so keep them literal.
+    width: 100%;
+
     tr {
       td {
+        padding: 0.5em 0.75em;
         padding-left: 0;
         border: none;
       }
     }
   }
+}
+
+// Bulma 1 adds a gap between level items; the buttons space themselves.
+.level-right {
+  gap: 0;
 }
 
 .button {

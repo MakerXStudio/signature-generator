@@ -4,23 +4,9 @@ import constants from '../constants';
 import type { Placeholders } from '../constants';
 import type { SignatureProps } from '../types';
 import ReactDOMServer from 'react-dom/server';
-import {
-  formatPhoneNumberIntl,
-  isValidPhoneNumber,
-} from 'react-phone-number-input';
-import type { Value as PhoneNumber } from 'react-phone-number-input';
+import parsePhoneNumber, { isValidPhoneNumber } from 'libphonenumber-js';
 
 const brandInfo = constants.brandInfo;
-
-const multiSplice = (toAddIndexes: number[], val: string, array: string[]) =>
-  toAddIndexes.forEach((index) => array.splice(index, 0, val));
-
-export const camelize = (str: string) => {
-  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index: number) {
-    if (+match === 0) return '';
-    return index === 0 ? match.toLowerCase() : match.toUpperCase();
-  });
-};
 
 export function parseMobile(mobileNum: string): string;
 export function parseMobile(mobileNum: undefined): null;
@@ -38,24 +24,8 @@ export function parseMobile(mobileNum: string | undefined): string | null {
     mobileNum = constants.default.countryCode + mobileNum;
   }
 
-  return formatPhoneNumberIntl(mobileNum as PhoneNumber);
+  return parsePhoneNumber(mobileNum)?.formatInternational() ?? '';
 }
-
-export const parseLandLine = (mobileNum: string | undefined) => {
-  if (mobileNum === undefined) return null;
-
-  const mobileFormatted = mobileNum.replace(/[\s|+]/g, '');
-  const numberArr = mobileFormatted.split('');
-  if (mobileFormatted.length === 8) {
-    numberArr.splice(4, 0, '&nbsp;');
-  } else if (mobileFormatted.length === 11) {
-    multiSplice([2, 4, 9], '&nbsp;', numberArr);
-    numberArr.splice(0, 0, '+');
-  } else {
-    return mobileNum;
-  }
-  return numberArr.join('');
-};
 
 const copyText = (text: string) => {
   const container = document.createElement('textarea');
@@ -152,6 +122,8 @@ export const copySignature = (
 
   const container = document.createElement('div');
   container.innerHTML = html;
+  // React 19 emits <link rel="preload"> tags for images; keep them off the clipboard.
+  container.querySelectorAll('link').forEach((link) => link.remove());
 
   container.style.position = 'fixed';
   container.style.pointerEvents = 'none';

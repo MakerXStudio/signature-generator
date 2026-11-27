@@ -1,6 +1,61 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+/* Keep the page looking as it did with Bulma 0.9: neutral greys, the 0.9 link
+   colour, radius, weights and control font. */
+:root {
+  --bulma-scheme-h: 0;
+  --bulma-scheme-s: 0%;
+  --bulma-white-h: 0deg;
+  --bulma-white-s: 0%;
+  --bulma-black-h: 0deg;
+  --bulma-black-s: 0%;
+  --bulma-light-h: 0deg;
+  --bulma-light-s: 0%;
+  --bulma-dark-h: 0deg;
+  --bulma-dark-s: 0%;
+  --bulma-text-h: 0deg;
+  --bulma-text-s: 0%;
+  --bulma-link-h: 229deg;
+  --bulma-link-s: 53%;
+  --bulma-link-l: 53%;
+  --bulma-link-on-scheme-l: 53%;
+  --bulma-link-invert-l: 100%;
+  --bulma-radius: 4px;
+  --bulma-family-primary: BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    Helvetica, Arial, sans-serif;
+  --bulma-focus-shadow-size: 0 0 0 0.125em;
+}
+
+.title {
+  --bulma-title-weight: 600;
+}
+
+.content {
+  --bulma-content-heading-weight: 600;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.button {
+  --bulma-button-weight: 400;
+  --bulma-button-padding-horizontal: calc(1em + 1px);
+  --bulma-button-outer-shadow-a: 0;
+  font-family: var(--bulma-family-primary);
+}
+
+.button.is-link {
+  --bulma-button-border-width: 1px;
+  border-color: transparent;
+}
+
+.content ol {
+  margin-top: 1em;
+}
+
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
