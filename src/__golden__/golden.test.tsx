@@ -1,14 +1,16 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Form from '../Form/Form';
+import { mockClipboard, type ClipboardWrite } from '../testUtils/clipboard';
 
 // Golden (characterization) tests: they record exactly what each copy button
-// puts on the clipboard. The HTML buttons copy the container's innerHTML after
-// the browser parser has normalized the rendered markup; the text buttons copy
-// the textarea's value.
+// puts on the clipboard, read back from a mocked navigator.clipboard. The HTML
+// goldens hold the text/html the HTML buttons write (the rendered markup as
+// the HTML parser normalizes it); the text goldens hold what the text buttons
+// write.
 
 type GoldenProfile = Partial<Record<keyof typeof labels, string | true>>;
 
@@ -37,22 +39,14 @@ const labels = {
   addGPTW: /^Add GPTW/,
 };
 
-const captureClipboard = async (
-  profile: GoldenProfile,
-): Promise<Record<string, string | undefined>> => {
-  const user = userEvent.setup();
+type Captured = Record<
+  'signatureHtml' | 'signatureText' | 'repliesHtml' | 'repliesText',
+  ClipboardWrite | undefined
+>;
 
-  const captured: (string | undefined)[] = [];
-  const execCommand = vi.fn((command: string) => {
-    expect(command).toBe('copy');
-    const node = document.body.lastElementChild;
-    captured.push(
-      node instanceof HTMLTextAreaElement ? node.value : node?.innerHTML,
-    );
-    return true;
-  });
-  const originalExecCommand = document.execCommand;
-  document.execCommand = execCommand;
+const captureClipboard = async (profile: GoldenProfile): Promise<Captured> => {
+  const user = userEvent.setup();
+  const clipboard = mockClipboard();
 
   try {
     render(<Form />);
@@ -85,19 +79,35 @@ const captureClipboard = async (
       if (!button) throw new Error('Copy button not found');
       await user.click(button);
     }
-  } finally {
-    document.execCommand = originalExecCommand;
-  }
 
-  expect(execCommand).toHaveBeenCalledTimes(4);
-  const [signatureHtml, signatureText, repliesHtml, repliesText] = captured;
-  return { signatureHtml, signatureText, repliesHtml, repliesText };
+    expect(clipboard.write).toHaveBeenCalledTimes(2);
+    expect(clipboard.writeText).toHaveBeenCalledTimes(2);
+    const writes = await clipboard.writes();
+    expect(writes).toHaveLength(4);
+    const [
+      signatureHtmlWrite,
+      signatureTextWrite,
+      repliesHtmlWrite,
+      repliesTextWrite,
+    ] = writes;
+    return {
+      signatureHtml: signatureHtmlWrite,
+      signatureText: signatureTextWrite,
+      repliesHtml: repliesHtmlWrite,
+      repliesText: repliesTextWrite,
+    };
+  } finally {
+    vi.unstubAllGlobals();
+  }
 };
+
+const goldenPath = (file: string) =>
+  join(dirname(fileURLToPath(import.meta.url)), file);
 
 describe.each(Object.entries(profiles))(
   'golden: %s profile',
   (profileName, profile) => {
-    let clipboard: Record<string, string | undefined>;
+    let clipboard: Captured;
 
     beforeAll(async () => {
       clipboard = await captureClipboard(profile);
@@ -110,15 +120,41 @@ describe.each(Object.entries(profiles))(
       repliesText: `${profileName}-replies-and-forwards.txt`,
     };
 
+    // The HTML buttons write text/html plus the matching text builder's
+    // output as text/plain; the text buttons write text/plain only.
+    const mimeTypes = {
+      signatureHtml: ['text/html', 'text/plain'],
+      signatureText: ['text/plain'],
+      repliesHtml: ['text/html', 'text/plain'],
+      repliesText: ['text/plain'],
+    };
+    const mimeType = (key: string) =>
+      key.endsWith('Html') ? 'text/html' : 'text/plain';
+
     it.each(Object.entries(files))('%s matches %s', async (key, file) => {
-      const value = clipboard[key];
+      const value = clipboard[key as keyof Captured]?.[mimeType(key)];
       expect(typeof value).toBe('string');
       expect(value?.length).toBeGreaterThan(0);
       expect(
-        existsSync(join(dirname(fileURLToPath(import.meta.url)), file)),
+        existsSync(goldenPath(file)),
         `Golden file ${file} is missing. Goldens must never be regenerated; restore it from git.`,
       ).toBe(true);
       await expect(value).toMatchFileSnapshot(`./${file}`);
+    });
+
+    it.each(Object.entries(mimeTypes))('%s writes %j', (key, expectedTypes) => {
+      expect(Object.keys(clipboard[key as keyof Captured] ?? {})).toEqual(
+        expectedTypes,
+      );
+    });
+
+    it.each([
+      ['signatureHtml', files.signatureText],
+      ['repliesHtml', files.repliesText],
+    ] as const)('%s text/plain matches %s', (key, file) => {
+      expect(clipboard[key]?.['text/plain']).toBe(
+        readFileSync(goldenPath(file), 'utf8'),
+      );
     });
   },
 );

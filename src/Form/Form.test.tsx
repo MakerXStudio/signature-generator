@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Form from './Form';
+import { mockClipboard } from '../testUtils/clipboard';
 
 describe('<Form>', () => {
   it('updates the preview when typing in the name field', async () => {
@@ -34,4 +35,25 @@ describe('<Form>', () => {
     await user.click(screen.getByLabelText(/^Add GPTW/));
     expect(screen.getByAltText('MakerX Best Workplaces')).toBeInTheDocument();
   });
+
+  it.each(['Copy signature', 'Copy text only'])(
+    'shows "Copy failed" when the %s clipboard write is rejected',
+    async (name) => {
+      const user = userEvent.setup();
+      const clipboard = mockClipboard();
+      clipboard.write.mockRejectedValue(new Error('denied'));
+      clipboard.writeText.mockRejectedValue(new Error('denied'));
+      try {
+        render(<Form />);
+        const [button] = screen.getAllByRole('button', { name });
+        if (!button) throw new Error('Copy button not found');
+
+        await user.click(button);
+        expect(button).toHaveTextContent('Copy failed');
+        expect(button).toHaveClass('button', 'is-danger');
+      } finally {
+        vi.unstubAllGlobals();
+      }
+    },
+  );
 });

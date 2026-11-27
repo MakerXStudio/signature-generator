@@ -3,23 +3,36 @@ import React, { useState } from 'react';
 interface ButtonProps {
   textBefore: string;
   textAfter: string;
+  textFailure: string;
   classBefore: string;
   classAfter: string;
-  onClickHandler: () => void;
+  classFailure: string;
+  onClickHandler: () => Promise<void>;
 }
 
 const Button = (props: ButtonProps) => {
-  const { textBefore, textAfter, classBefore, classAfter, onClickHandler } =
-    props;
+  const {
+    textBefore,
+    textAfter,
+    textFailure,
+    classBefore,
+    classAfter,
+    classFailure,
+    onClickHandler,
+  } = props;
 
   const [textState, setTextState] = useState(textBefore);
   const [classState, setClassState] = useState(classBefore);
 
-  const onClick = () => {
-    onClickHandler();
-
-    setTextState(textAfter);
-    setClassState(classAfter);
+  const onClick = async () => {
+    try {
+      await onClickHandler();
+      setTextState(textAfter);
+      setClassState(classAfter);
+    } catch {
+      setTextState(textFailure);
+      setClassState(classFailure);
+    }
 
     setTimeout(() => {
       setTextState(textBefore);

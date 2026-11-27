@@ -42,5 +42,3 @@ export interface SignatureProps {
   brandLink: string;
   brandLinkName: string;
 }
-
-export type CopyProps = SignatureProps & { placeholders: Placeholders };

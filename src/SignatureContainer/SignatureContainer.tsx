@@ -50,7 +50,7 @@ const SignatureContainer = ({ profile }: SignatureContainerProps) => {
     brandLinkName: brandInfo.brandLinkName,
   });
 
-  const buttons = createButtons(signatureProps, placeholders);
+  const buttons = createButtons(signatureProps);
 
   const containerProps = {
     signatureProps,

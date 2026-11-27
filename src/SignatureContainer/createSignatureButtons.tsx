@@ -1,14 +1,15 @@
 import React, { type ReactElement } from 'react';
 
+import { copyHtml, copyText } from '../clipboard';
+import { renderSignatureHtml } from '../signatureOutput/html';
 import {
-  copyRepliesAndForwardsText,
-  copySignature,
-  copySignatureText,
-} from '../util';
+  buildRepliesAndForwardsText,
+  buildSignatureText,
+} from '../signatureOutput/text';
 import Signature from '../Signature/Signature';
 import RepliesAndForwards from '../RepliesAndForwards/RepliesAndForwards';
 import Button from '../Button/Button';
-import type { Placeholders, SignatureProps } from '../types';
+import type { SignatureProps } from '../types';
 
 type ButtonName =
   | 'CopySignatureText'
@@ -16,9 +17,11 @@ type ButtonName =
   | 'CopyRepliesAndForwardsText'
   | 'CopyRepliesAndForwardsHtml';
 
-const buttonMaker = (clickHandler: () => void, isText: boolean) => {
+const buttonMaker = (clickHandler: () => Promise<void>, isText: boolean) => {
   const isSuccessClass = 'button is-success';
   const copiedText = 'Copied!';
+  const isFailureClass = 'button is-danger';
+  const failedText = 'Copy failed';
   const classText = 'button';
   const classHtml = 'button is-link';
   const textText = 'Copy text only';
@@ -28,41 +31,27 @@ const buttonMaker = (clickHandler: () => void, isText: boolean) => {
       onClickHandler={clickHandler}
       classBefore={isText ? classText : classHtml}
       classAfter={isSuccessClass}
+      classFailure={isFailureClass}
       textBefore={isText ? textText : textHtml}
       textAfter={copiedText}
+      textFailure={failedText}
     />
   );
 };
-export const createButtons = (
-  signatureProps: SignatureProps,
-  placeholders: Placeholders,
-) => {
-  const clickHandlers: Record<ButtonName, () => void> = {
-    CopySignatureText: () =>
-      copySignatureText({
-        ...signatureProps,
-        placeholders: placeholders,
-      }),
+export const createButtons = (signatureProps: SignatureProps) => {
+  const clickHandlers: Record<ButtonName, () => Promise<void>> = {
+    CopySignatureText: () => copyText(buildSignatureText(signatureProps)),
     CopySignatureHtml: () =>
-      copySignature(
-        {
-          ...signatureProps,
-          placeholders: placeholders,
-        },
-        Signature,
+      copyHtml(
+        renderSignatureHtml(Signature, signatureProps),
+        buildSignatureText(signatureProps),
       ),
     CopyRepliesAndForwardsText: () =>
-      copyRepliesAndForwardsText({
-        ...signatureProps,
-        placeholders: placeholders,
-      }),
+      copyText(buildRepliesAndForwardsText(signatureProps)),
     CopyRepliesAndForwardsHtml: () =>
-      copySignature(
-        {
-          ...signatureProps,
-          placeholders: placeholders,
-        },
-        RepliesAndForwards,
+      copyHtml(
+        renderSignatureHtml(RepliesAndForwards, signatureProps),
+        buildRepliesAndForwardsText(signatureProps),
       ),
   };
 
