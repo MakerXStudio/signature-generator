@@ -1,0 +1,2 @@
+src/__goldens__/** -text
+e2e/__goldens__/** -text
